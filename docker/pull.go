@@ -13,6 +13,9 @@ import (
 // Pulls the Docker Image
 func Pull(image string, showProgress bool) (err error) {
 	reader, err := dockerCLI.ImagePull(context.Background(), image, img.PullOptions{})
+	if err != nil {
+		return
+	}
 
 	if !showProgress {
 		io.Copy(io.Discard, reader)

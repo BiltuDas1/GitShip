@@ -9,3 +9,8 @@ func Init() (err error) {
 	dockerCLI, err = client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	return
 }
+
+// Close the Docker Engine Connection
+func Close() {
+	dockerCLI.Close()
+}

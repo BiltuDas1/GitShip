@@ -4,6 +4,7 @@ go 1.25.4
 
 require (
 	github.com/docker/docker v28.5.2+incompatible
+	github.com/mattn/go-colorable v0.1.14
 	github.com/moby/term v0.5.2
 )
 
@@ -19,6 +20,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/sys/atomicwriter v0.1.0 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect

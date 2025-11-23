@@ -1,5 +1,6 @@
 # Convert all source files to use LF
 *.mod text eol=lf
+*.sum text eol=lf
 *.go   text eol=lf
 *.md text eol=lf
 Dockerfile text eol=lf

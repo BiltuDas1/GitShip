@@ -31,7 +31,12 @@ func main() {
 	stopProgress("Pulled " + imageName, true)
 
 	stopProgress = utils.BrailleProgress("Running " + imageName + "...")
-	err = docker.Run(imageName, "")
+	Env := docker.Env{}
+	Env.Add("HELLO", "WORLD")
+	err = docker.Run(imageName, "", docker.Config{
+		DisableNetwork: true,
+		Environment: &Env,
+	})
 	if err != nil {
 		stopProgress("Failed to run " + imageName, false)
 		panic(err)

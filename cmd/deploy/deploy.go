@@ -44,7 +44,7 @@ func Deploy(payload amqp.Delivery) (err error) {
 		return
 	}
 
-	err = docker.Pull(data.Image, false)
+	err = docker.Pull(data.Image, true)
 	if err != nil {
 		return
 	}

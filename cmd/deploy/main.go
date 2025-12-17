@@ -50,6 +50,7 @@ func main() {
 	failOnError(err, "Failed to Register a Consumer")
 
 	// Waiting for payload
+	log.Printf("Deploy Server is running.")
 	for msg := range msgs {
 		err = Deploy(msg)
 		if err != nil {

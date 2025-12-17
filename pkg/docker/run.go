@@ -12,11 +12,11 @@ func Run(image string, containerName string, conf Config) (err error) {
 	resp, err := dockerCLI.ContainerCreate(
 		context.Background(),
 		&container.Config{
-			Image: image,
-			Env: conf.Environment.ToString(),
-			WorkingDir: conf.WorkingDir,
-			Cmd: conf.StartCmd,
-			Entrypoint: conf.Entrypoint,
+			Image:           image,
+			Env:             conf.Environment.ToString(),
+			WorkingDir:      conf.WorkingDir,
+			Cmd:             conf.StartCmd,
+			Entrypoint:      conf.Entrypoint,
 			NetworkDisabled: conf.DisableNetwork,
 		},
 		nil, nil, nil, containerName,

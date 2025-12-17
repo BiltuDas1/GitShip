@@ -1,8 +1,10 @@
-package utils
+package progressbar
 
 import (
 	"fmt"
 	"time"
+
+	"github.com/BiltuDas1/GitShip/pkg/term"
 )
 
 // Starts the Progressbar
@@ -34,15 +36,15 @@ func loading(end chan []any, doneFlag chan bool, message string) {
 			success := data[1].(bool)
 
 			if success {
-				fmt.Fprintf(COLOR, "\r%s %s%s\n", TICK, msg, CLEAN_OFFSET)
+				fmt.Fprintf(term.Writer(), "\r%s %s%s\n", TICK, msg, CLEAN_OFFSET)
 			} else {
-				fmt.Fprintf(COLOR, "\r%s %s%s\n", CROSS, msg, CLEAN_OFFSET)
+				fmt.Fprintf(term.Writer(), "\r%s %s%s\n", CROSS, msg, CLEAN_OFFSET)
 			}
 			doneFlag <- true
 			return
 
 		default:
-			fmt.Fprintf(COLOR, "\r\033[36m%s\033[0m %s", FRAMES[currentFrame], message)
+			fmt.Fprintf(term.Writer(), "\r\033[36m%s\033[0m %s", FRAMES[currentFrame], message)
 
 			// Picks the Next Frame
 			time.Sleep(80 * time.Millisecond)

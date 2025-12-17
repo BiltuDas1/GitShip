@@ -10,9 +10,9 @@ import (
 
 var parser = shellwords.NewParser()
 
-// Split Parameters according to the shell parsing
+// splitParams takes a string of parameters and then split it according to the shell logic
 func splitParams(params string) (result []string) {
-	parser.ParseEnv = false
+	parser.ParseEnv = false // SECURITY: Prevent users from injecting $ENV_VARS
 	args, err := parser.Parse(params)
 	if err != nil {
 		return
@@ -20,7 +20,7 @@ func splitParams(params string) (result []string) {
 	return args
 }
 
-// RabbitMQ Deploy Payload
+// Stores the payload, which is received from RabbitMQ
 type payload struct {
 	Image        string            `json:"image"`
 	Environments map[string]string `json:"environments"`
@@ -28,7 +28,7 @@ type payload struct {
 	Cmd          string            `json:"cmd"`
 }
 
-// Converts the bytes to payload object
+// Converts the bytes format to JSON based payload object
 func toPayloadObj(data []byte) (result payload, err error) {
 	err = json.Unmarshal(data, &result)
 	if err != nil {
@@ -37,7 +37,7 @@ func toPayloadObj(data []byte) (result payload, err error) {
 	return
 }
 
-// Converts the payload object to Config object
+// Converts the payload object to Docker Config object
 func toConfigObj(data payload) (conf docker.Config) {
 	conf.DisableNetwork = false
 	env := docker.Env{}
@@ -51,6 +51,12 @@ func toConfigObj(data payload) (conf docker.Config) {
 }
 
 // Deploy the Docker Container
+//  1. It takes the payload from the RabbitMQ Queues, and convert it to payload object
+//  2. Then read the image name from the payload, and download it using docker daemon
+//  3. After the image has been downloaded it reads the container configuration from
+//     the payload, and then run the container according to the configuration.
+//
+// If something went wrong during the steps then an error returned
 func Deploy(payload amqp.Delivery) (err error) {
 	data, err := toPayloadObj(payload.Body)
 	if err != nil {

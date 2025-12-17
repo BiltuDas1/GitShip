@@ -4,7 +4,7 @@ import (
 	"log"
 
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
-	env "github.com/BiltuDas1/GitShip/pkg/env"
+	env "github.com/BiltuDas1/GitShip/pkg/environ"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -51,13 +51,16 @@ func main() {
 
 	// Waiting for payload
 	log.Printf("Deploy Server is running.")
-	semaphore := make(chan struct{}, 3) // Max 3 deployments are allocated
+
+	// This variable decides maximum 3 Goroutines will
+	// execute, to perform deploy operations
+	semaphore := make(chan struct{}, 3)
 
 	for msg := range msgs {
-		semaphore <- struct{}{} // Permitting
+		semaphore <- struct{}{} // Increase Value
 
 		go func(msg amqp.Delivery) {
-			// Release
+			// Decrease Semaphore value
 			defer func() {
 				<-semaphore
 			}()

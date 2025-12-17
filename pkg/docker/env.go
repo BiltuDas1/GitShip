@@ -2,6 +2,8 @@ package docker
 
 import "sync"
 
+// Env struct stores the environment variables required by
+// docker containers
 type Env struct {
 	values sync.Map
 }
@@ -24,6 +26,11 @@ func (e *Env) Get(key string) (value string, exists bool) {
 }
 
 // Convert to String Slice Format
+//
+//	example:
+//	  env = Env{}
+//	  env.Add("Hello", "World")
+//	  fmt.Println(env.ToString()) // ["Hello=World"]
 func (e *Env) ToString() (result []string) {
 	e.values.Range(func(k any, v any) bool {
 		key := k.(string)

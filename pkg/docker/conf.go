@@ -1,5 +1,6 @@
 package docker
 
+// Config stores the configuration details of Docker
 type Config struct {
 	WorkingDir     string   // Override default current directory
 	Entrypoint     []string // Entrypoint of the container

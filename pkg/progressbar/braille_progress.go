@@ -21,6 +21,7 @@ func BrailleProgress(message string) func(completeMessage string, success bool) 
 	}
 }
 
+// The infinite laading function
 func loading(end chan []any, doneFlag chan bool, message string) {
 	FRAMES := []string{"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"}
 	TICK := "\033[32m✓\033[0m"

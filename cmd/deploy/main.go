@@ -51,13 +51,24 @@ func main() {
 
 	// Waiting for payload
 	log.Printf("Deploy Server is running.")
+	semaphore := make(chan struct{}, 3) // Max 3 deployments are allocated
+
 	for msg := range msgs {
-		err = Deploy(msg)
-		if err != nil {
-			log.Printf("Deploy Failed: %s\n", err)
-			msg.Reject(false)
-		} else {
-			msg.Ack(false)
-		}
+		semaphore <- struct{}{} // Permitting
+
+		go func(msg amqp.Delivery) {
+			// Release
+			defer func() {
+				<-semaphore
+			}()
+
+			err = Deploy(msg)
+			if err != nil {
+				log.Printf("Deploy Failed: %s\n", err)
+				msg.Reject(false)
+			} else {
+				msg.Ack(false)
+			}
+		}(msg)
 	}
 }

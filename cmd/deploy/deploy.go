@@ -2,11 +2,23 @@ package main
 
 import (
 	"encoding/json"
-	"strings"
 
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
+	shellwords "github.com/mattn/go-shellwords"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
+
+var parser = shellwords.NewParser()
+
+// Split Parameters according to the shell parsing
+func splitParams(params string) (result []string) {
+	parser.ParseEnv = false
+	args, err := parser.Parse(params)
+	if err != nil {
+		return
+	}
+	return args
+}
 
 // RabbitMQ Deploy Payload
 type payload struct {
@@ -33,7 +45,8 @@ func toConfigObj(data payload) (conf docker.Config) {
 		env.Add(key, value)
 	}
 	conf.Environment = &env
-	conf.StartCmd = strings.Split(data.Cmd, " ")
+
+	conf.StartCmd = splitParams(data.Cmd)
 	return
 }
 

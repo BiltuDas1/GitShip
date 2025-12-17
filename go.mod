@@ -5,6 +5,7 @@ go 1.25.4
 require (
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/mattn/go-colorable v0.1.14
+	github.com/mattn/go-shellwords v1.0.12
 	github.com/moby/term v0.5.2
 	github.com/rabbitmq/amqp091-go v1.10.0
 )

@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	utils "github.com/BiltuDas1/GitShip/internal/utils"
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
 	env "github.com/BiltuDas1/GitShip/pkg/environ"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -10,22 +11,22 @@ import (
 
 func main() {
 	Env := env.Env{}
-	err := Env.LoadEnv()
-	failOnError(err, "Failed to Load Environment")
+	err := Env.LoadEnv("deploy")
+	utils.FailOnError(err, "Failed to Load Environment")
 
 	MQURI, err := Env.Get("RABBITMQ_URI")
-	failOnError(err, "Failed to get RABBITMQ_URI Environment variable value")
+	utils.FailOnError(err, "Failed to get RABBITMQ_URI Environment variable value")
 
 	conn, err := amqp.Dial(MQURI)
-	failOnError(err, "Failed to connect to RabbitMQ")
+	utils.FailOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
 
 	err = docker.Init()
-	failOnError(err, "Docker Initialization Failed")
+	utils.FailOnError(err, "Docker Initialization Failed")
 	defer docker.Close()
 
 	ch, err := conn.Channel()
-	failOnError(err, "Failed to open a channel")
+	utils.FailOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
 	que, err := ch.QueueDeclare(
@@ -36,7 +37,7 @@ func main() {
 		false,
 		nil,
 	)
-	failOnError(err, "Failed to declare a queue")
+	utils.FailOnError(err, "Failed to declare a queue")
 
 	msgs, err := ch.Consume(
 		que.Name,
@@ -47,7 +48,7 @@ func main() {
 		false,
 		nil,
 	)
-	failOnError(err, "Failed to Register a Consumer")
+	utils.FailOnError(err, "Failed to Register a Consumer")
 
 	// Waiting for payload
 	log.Printf("Deploy Server is running.")

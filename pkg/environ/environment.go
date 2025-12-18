@@ -13,14 +13,14 @@ type Env struct {
 
 // config is just an object to store env.json data
 type config struct {
-	Environment []string `json:"environment"`
+	Environment map[string][]string `json:"environment"`
 }
 
 // Get the environment variable names from filename
 //  1. Reads the JSON file
 //  2. Converts it to config type
 //  3. Retrieve List of environment and return it
-func getVariables(filename string) (list []string, err error) {
+func getVariables(filename string, typeof string) (list []string, err error) {
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, errors.New("unable to read file " + filename)
@@ -32,15 +32,21 @@ func getVariables(filename string) (list []string, err error) {
 		return nil, errors.New(filename + " contains invalid json data")
 	}
 
-	list = envList.Environment
-	return
+	result, ok := envList.Environment[typeof]
+	if !ok {
+		return nil, errors.New(filename + " doesn't contains [environment][" + typeof + "] field")
+	}
+	return result, nil
 }
 
-// Loads the Environment from env.json
-func (e *Env) LoadEnv() (err error) {
-	e.data = map[string]string{}
+// Loads the Environment from env.json, the typeof defines what environment we are trying to load
+//
+//	Example:
+//	LoadEnv("deploy") // Loads "environment" -> "deploy" in env.json
+func (e *Env) LoadEnv(typeof string) (err error) {
+	e.data = make(map[string]string)
 
-	envList, err := getVariables("env.json")
+	envList, err := getVariables("env.json", typeof)
 	for _, name := range envList {
 		if value, ok := os.LookupEnv(name); ok {
 			e.data[name] = value

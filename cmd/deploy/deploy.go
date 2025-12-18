@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 
+	models "github.com/BiltuDas1/GitShip/internal/models"
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
 	shellwords "github.com/mattn/go-shellwords"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -20,16 +21,8 @@ func splitParams(params string) (result []string) {
 	return args
 }
 
-// Stores the payload, which is received from RabbitMQ
-type payload struct {
-	Image        string            `json:"image"`
-	Environments map[string]string `json:"environments"`
-	Port         uint16            `json:"port"`
-	Cmd          string            `json:"cmd"`
-}
-
 // Converts the bytes format to JSON based payload object
-func toPayloadObj(data []byte) (result payload, err error) {
+func toPayloadObj(data []byte) (result models.DeployPayload, err error) {
 	err = json.Unmarshal(data, &result)
 	if err != nil {
 		return
@@ -38,7 +31,7 @@ func toPayloadObj(data []byte) (result payload, err error) {
 }
 
 // Converts the payload object to Docker Config object
-func toConfigObj(data payload) (conf docker.Config) {
+func toConfigObj(data models.DeployPayload) (conf docker.Config) {
 	conf.DisableNetwork = false
 	env := docker.Env{}
 	for key, value := range data.Environments {

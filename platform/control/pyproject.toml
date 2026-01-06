@@ -1,0 +1,23 @@
+[project]
+name = "gitship"
+version = "0.1.0"
+description = "Gitship is a tool to deploy code from Git and Docker Registry"
+authors = [
+    {name = "BiltuDas1",email = "billionto@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=6.0,<7.0)"
+]
+
+[dependency-groups]
+dev = [
+    "python-dotenv (>=1.2.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

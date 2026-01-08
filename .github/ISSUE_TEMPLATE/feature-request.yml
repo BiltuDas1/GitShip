@@ -34,11 +34,11 @@ body:
       label: Affected Components
       description: Select the parts which might be affected
       options:
-        - Infrastructure / Deployer (Go)
-        - Infrastructure / Logger (Go)
-        - Control Panel / API (Python)
-        - Dashboard (React)
-        - CLI / Documentation
+        - label: Infrastructure / Deployer (Go)
+        - label: Infrastructure / Logger (Go)
+        - label: Control Panel / API (Python)
+        - label: Dashboard (React)
+        - label: CLI / Documentation
     validations:
       required: true
 

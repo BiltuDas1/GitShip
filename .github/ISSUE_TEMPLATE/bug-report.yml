@@ -1,0 +1,72 @@
+name: Bug report
+description: Requesting for fixing a bug
+title: "bug:"
+labels: ["bug"]
+body:
+  - type: textarea
+    attributes:
+      label: Describe the Bug
+      description: A clear, concise description of what the bug is
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: Write down the steps which reproduces the bug
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What behavior it should do actually
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: What behavior the system is doing currently
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Affected Components
+      description: Select the parts which might be affected
+      options:
+        - Infrastructure / Deployer (Go)
+        - Infrastructure / Logger (Go)
+        - Control Panel / API (Python)
+        - Dashboard (React)
+        - CLI / Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Environment Details
+      description: Input the details of the system/software
+      placeholder: Docker version, OS, Browser...
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Log Output
+      description: Please paste any error logs from the terminal or browser console
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    attributes:
+      label: Conclusion
+      options:
+        - label: I'm sure that there is no existing issue like this
+          required: true
+        - label: I assure that I'm using latest version
+          required: true
+        - label: I am willing to help develop this feature
+          required: false

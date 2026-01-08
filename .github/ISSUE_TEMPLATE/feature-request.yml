@@ -1,0 +1,55 @@
+name: Feature Request
+description: Asking for a new feature
+title: "feat: "
+labels: ["feature-request"]
+assignees:
+  - BiltuDas1
+body:
+  - type: textarea
+    attributes:
+      label: Problem Statement
+      description: Explain what you think need to add in details
+      placeholder: >-
+        Explain what is the feature you are asking in as much details as
+        possible
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Feature to Implement
+      description: Explain the feature which need to add
+      placeholder: I'd like to see a new dashboard view that...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Examples / Screenshots
+      description: >-
+        Link to images, draw diagrams, or paste example code/CLI output of how
+        it should look
+      placeholder: You can drag and drop images here
+  - type: checkboxes
+    attributes:
+      label: Affected Components
+      description: Select the parts which might be affected
+      options:
+        - label: Infrastructure / Deployer (Go)
+          required: false
+        - label: Infrastructure / Logger (Go)
+          required: false
+        - label: Control Panel / API (Python)
+          required: false
+        - label: Dashboard (React)
+          required: false
+        - label: CLI / Documentation
+          required: false
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Conclusion
+      options:
+        - label: I'm sure that there is no existing issue like this
+          required: true
+        - label: I am willing to help develop this feature
+          required: false

@@ -2,8 +2,6 @@ name: Feature Request
 description: Asking for a new feature
 title: "feat: "
 labels: ["feature request"]
-assignees:
-  - BiltuDas1
 body:
   - type: textarea
     attributes:
@@ -14,6 +12,7 @@ body:
         possible
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: Feature to Implement
@@ -21,6 +20,7 @@ body:
       placeholder: I'd like to see a new dashboard view that...
     validations:
       required: true
+
   - type: textarea
     attributes:
       label: Examples / Screenshots
@@ -28,23 +28,20 @@ body:
         Link to images, draw diagrams, or paste example code/CLI output of how
         it should look
       placeholder: You can drag and drop images here
+
   - type: checkboxes
     attributes:
       label: Affected Components
       description: Select the parts which might be affected
       options:
-        - label: Infrastructure / Deployer (Go)
-          required: false
-        - label: Infrastructure / Logger (Go)
-          required: false
-        - label: Control Panel / API (Python)
-          required: false
-        - label: Dashboard (React)
-          required: false
-        - label: CLI / Documentation
-          required: false
+        - Infrastructure / Deployer (Go)
+        - Infrastructure / Logger (Go)
+        - Control Panel / API (Python)
+        - Dashboard (React)
+        - CLI / Documentation
     validations:
       required: true
+
   - type: checkboxes
     attributes:
       label: Conclusion

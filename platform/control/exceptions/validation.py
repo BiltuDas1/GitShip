@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from utils.status import Response, HTTPStatus, VALIDATION_FAILED
+from utils.status import Response, HTTPStatus
 
 
 def setValidationException(app: FastAPI):
@@ -10,12 +10,14 @@ def setValidationException(app: FastAPI):
 
   @app.exception_handler(RequestValidationError)
   async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    error = exc.errors()[0]
-    clean_message = error.get("msg").replace("Value error, ", "")
+    errors = {}
+    for err in exc.errors():
+      message = err.get("msg").replace("Value error, ", "")
+      field = err.get("loc")[-1]
+      errors[field] = message
 
     return Response(
       status=False,
-      code=VALIDATION_FAILED,
-      message=clean_message,
-      field=error.get("loc")[-1],
+      message="validation failed",
+      errors=errors,
     ).status(HTTPStatus.HTTP_400_BAD_REQUEST)

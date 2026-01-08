@@ -1,4 +1,3 @@
-from . import resultcode
 from fastapi.responses import JSONResponse
 from datetime import datetime
 from typing import Literal
@@ -14,14 +13,10 @@ class Response(JSONResponse):
     *,
     status: bool,
     message: str | None = None,
-    code: str = resultcode.SUCCESS,
     **kwargs,
   ):
     self.__body = {}
     self.__body["status"] = status
-
-    if code != resultcode.SUCCESS:
-      self.__body["code"] = code
 
     if message:
       self.__body["message"] = message

@@ -10,13 +10,17 @@ async def add_user(
   Adds the user information to the database
   """
   try:
-    await User.create(
+    new_user = await User.create(
       firstname=firstname,
       lastname=lastname,
       email=email,
       password=password,
     )
   except IntegrityError:
-    return Response(status=False, message="email address already exist").status(400)
+    return Response(status=False, message="user already exist").status(400)
 
-  return Response(status=True, message="registration successful").status(200)
+  return Response(
+    status=True,
+    message="user registered successfully",
+    data={"uuid": str(new_user.id), "email": new_user.email},
+  ).status(200)

@@ -5,6 +5,7 @@ from utils import security
 
 
 class User(Model):
+  id = fields.UUIDField(primary_key=True)
   firstname = fields.CharField(max_length=50)
   lastname = fields.CharField(max_length=50)
   email = fields.CharField(max_length=255, unique=True)

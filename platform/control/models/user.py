@@ -11,6 +11,7 @@ class User(Model):
   email = fields.CharField(max_length=255, unique=True)
   password = fields.CharField(max_length=60)
   created_at = fields.DatetimeField(auto_now_add=True)
+  is_active = fields.BooleanField(default=False)
 
   @classmethod
   async def create(cls, **kwargs):

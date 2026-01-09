@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from utils import password
+from email_validator import validate_email, EmailNotValidError
 
 
 class RegisterSchema(BaseModel):
@@ -14,6 +15,14 @@ class RegisterSchema(BaseModel):
     if not name.isalpha():
       raise ValueError("name should only contains alphabet characters")
     return name
+
+  @field_validator("email")
+  def email_validator(cls, email: str):
+    try:
+      email_info = validate_email(email)
+      return email_info.normalized
+    except EmailNotValidError as e:
+      raise ValueError(e)
 
   @field_validator("password")
   def password_validator(cls, passwd: str):

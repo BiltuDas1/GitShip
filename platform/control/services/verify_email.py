@@ -3,6 +3,9 @@ from models.user import User
 
 
 async def verify(token: str) -> User | None:
+  """
+  Checks if the token is valid or not
+  """
   token_obj = await VerificationToken.get_or_none(token=token)
   if token_obj is None:
     return None

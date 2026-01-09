@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from schemas import authSchema
 from services.register import register_new_user
 from services.verify_email import verify
+from services.login import login_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
 
@@ -55,3 +56,21 @@ async def verify_email(token: str):
   return Response(status=False, message="invalid token").status(
     HTTPStatus.HTTP_404_NOT_FOUND
   )
+
+
+@router.post("/login")
+async def login(data: authSchema.LoginSchema):
+  """
+  User Login Handler
+  """
+  user = await login_user(data.email, data.password)
+  if user is None:
+    return Response(status=False, message="invalid email or password").status(
+      HTTPStatus.HTTP_400_BAD_REQUEST
+    )
+
+  return Response(
+    status=True,
+    message="login successful",
+    data={"firstname": user.firstname, "lastname": user.lastname, "email": user.email},
+  ).status(HTTPStatus.HTTP_200_OK)

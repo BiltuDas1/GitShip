@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from schemas import authSchema
 from services.register import register_new_user
+from services.verify_email import verify
 from services import exceptions
 from utils.status import Response, HTTPStatus
 
@@ -36,3 +37,21 @@ async def register(data: authSchema.RegisterSchema):
     return Response(status=False, message=str(err)).status(
       HTTPStatus.HTTP_400_BAD_REQUEST
     )
+
+
+@router.get("/verify")
+async def verify_email(token: str):
+  """
+  Verify Email Handler
+  """
+  user = await verify(token)
+  if user is not None:
+    return Response(
+      status=True,
+      message="user registered successfully",
+      data={"uuid": str(user.id), "email": user.email},
+    ).status(HTTPStatus.HTTP_200_OK)
+
+  return Response(status=False, message="invalid token").status(
+    HTTPStatus.HTTP_404_NOT_FOUND
+  )

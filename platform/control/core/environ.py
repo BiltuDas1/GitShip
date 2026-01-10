@@ -29,3 +29,6 @@ class Env:
       return True
     else:
       return False
+
+
+ENV = Env()

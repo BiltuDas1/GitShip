@@ -4,7 +4,7 @@ from utils.email import EMAIL
 from utils.template import Template
 from utils.template.types import EmailVerify
 from utils import token
-from core import settings
+from core import environ, settings
 from . import exceptions
 
 
@@ -15,7 +15,7 @@ async def register_new_user(
   Adds the user information to the database
   """
   # Checks if SENDER_EMAIL is set or not
-  sender_email = settings.ENV.get("SENDER_EMAIL")
+  sender_email = environ.ENV.get("SENDER_EMAIL")
   if sender_email is None:
     raise exceptions.EmailConfigurationError("email server is not ready")
 
@@ -41,7 +41,7 @@ async def register_new_user(
     subject="Verify your Email",
     body=Template(
       EmailVerify(
-        verification_link=f"{settings.FRONTEND_URL}{settings.VERIFY_EMAIL_PATH}?token={verify_token.token}",
+        verification_link=f"{settings.FRONTEND_URL}/verify-email?token={verify_token.token}",
         firstname=firstname,
         feedback_email=sender_email,
       )

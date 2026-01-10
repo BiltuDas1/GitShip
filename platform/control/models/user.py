@@ -24,3 +24,6 @@ class User(Model):
       kwargs["password"] = security.hash_password(cast(str, kwargs["password"]))
 
     return await super().create(**kwargs)
+
+  def set_password(self, password: str):
+    self.password = security.hash_password(password)

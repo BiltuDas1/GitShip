@@ -1,4 +1,4 @@
-from models import User, VerificationToken
+from models import User, VerificationToken, TokenType
 from tortoise.exceptions import IntegrityError
 from utils.email import EMAIL
 from utils.template import Template
@@ -32,7 +32,7 @@ async def register_new_user(
 
   # Generate Email token and store in DB
   verify_token = await VerificationToken.create(
-    user=new_user, token=token.generate_token()
+    user=new_user, token=token.generate_token(), token_type=TokenType.VERIFY_EMAIL
   )
 
   # Trying to send email

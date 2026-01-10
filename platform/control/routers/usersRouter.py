@@ -1,6 +1,7 @@
 from fastapi import APIRouter
-from schemas import authSchema
+from schemas import usersSchema
 from services.register import register_new_user
+from services.reset_password import reset_password, set_password
 from services.verify_email import verify
 from services.login import login_user
 from services import exceptions
@@ -11,7 +12,7 @@ router = APIRouter(prefix="/users", tags=["Authentication"])
 
 
 @router.post("/register")
-async def register(data: authSchema.RegisterSchema):
+async def register(data: usersSchema.RegisterSchema):
   """
   User Registration Handler
   """
@@ -59,7 +60,7 @@ async def verify_email(token: str):
 
 
 @router.post("/login")
-async def login(data: authSchema.LoginSchema):
+async def login(data: usersSchema.LoginSchema):
   """
   User Login Handler
   """
@@ -74,3 +75,45 @@ async def login(data: authSchema.LoginSchema):
     message="login successful",
     data={"firstname": user.firstname, "lastname": user.lastname, "email": user.email},
   ).status(HTTPStatus.HTTP_200_OK)
+
+
+# Password Related Routing
+passwordRouter = APIRouter(prefix="/password", tags=["Password"])
+
+
+@passwordRouter.post("/reset")
+async def reset(data: usersSchema.ResetPasswordSchema):
+  """
+  Reset Password Handler
+  """
+  try:
+    await reset_password(data.email)
+
+    return Response(
+      status=True, message="a reset password email has been sent to that email address"
+    ).status(HTTPStatus.HTTP_200_OK)
+
+  except exceptions.EmailConfigurationError as err:
+    return Response(status=False, message=str(err)).status(
+      HTTPStatus.HTTP_500_INTERNAL_SERVER_ERROR
+    )
+
+
+@passwordRouter.post("/update")
+async def update_password(data: usersSchema.UpdatePasswordSchema):
+  """
+  Update Password Handler (Helper of Reset Password Handler)
+  """
+  isSet = await set_password(data.token, data.password)
+  if not isSet:
+    return Response(status=False, message="invalid token").status(
+      HTTPStatus.HTTP_400_BAD_REQUEST
+    )
+
+  return Response(status=True, message="password updated").status(
+    HTTPStatus.HTTP_200_OK
+  )
+
+
+# Attaching the password router with the users router
+router.include_router(passwordRouter)

@@ -1,5 +1,5 @@
 import httpx
-from core import settings
+from core import environ
 from email_validator import validate_email
 from utils.template import Template
 from .email import Email
@@ -11,19 +11,19 @@ class BrevoEmail(Email):
   """
 
   def __init__(self):
-    if (api_key := settings.ENV.get("BREVO_API_KEY")) is not None and len(api_key) > 0:
+    if (api_key := environ.ENV.get("BREVO_API_KEY")) is not None and len(api_key) > 0:
       self.__api_key = api_key
     else:
       raise EnvironmentError("BREVO_API_KEY is not set")
 
-    if (sender_email := settings.ENV.get("SENDER_EMAIL")) is not None and len(
+    if (sender_email := environ.ENV.get("SENDER_EMAIL")) is not None and len(
       sender_email
     ) > 0:
       self.__sender_email = validate_email(sender_email).normalized
     else:
       raise EnvironmentError("SENDER_EMAIL is not set")
 
-    if (sender_name := settings.ENV.get("SENDER_NAME")) is not None and len(
+    if (sender_name := environ.ENV.get("SENDER_NAME")) is not None and len(
       sender_name
     ) > 0:
       self.__sender_name = sender_name

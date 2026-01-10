@@ -4,14 +4,13 @@ from tortoise import Tortoise
 from . import environ, debug
 from contextlib import asynccontextmanager
 from utils import email
+import db
 
 
-ENV = environ.Env()
-DB_URI = ENV.get("POSTGRESQL_URI")
+DB_URI = environ.ENV.get("POSTGRESQL_URI")
 
 # Frontend Settings
-FRONTEND_URL = ENV.get("FRONTEND_URL") or "http://127.0.0.1:5173"
-VERIFY_EMAIL_PATH = "/verify-email"
+FRONTEND_URL = environ.ENV.get("FRONTEND_URL") or "http://127.0.0.1:5173"
 
 
 def InitializeORM(app: FastAPI):
@@ -33,4 +32,7 @@ async def APILifespan(app: FastAPI):
   print("Done")
   print("Closing connection of Database Server...", end="")
   await Tortoise.close_connections()
+  print("Done")
+  print("Closing connection of Caching Server...", end="")
+  await db.CACHE.close()
   print("Done")

@@ -3,7 +3,11 @@ from abc import ABC, abstractmethod
 
 class Cache(ABC):
   @abstractmethod
-  async def set(self, key: str, value: str):
+  async def set(self, key: str, value: str, expire_after: int | None = None):
+    pass
+
+  @abstractmethod
+  async def setExpiry(self, key: str, expire_at: int):
     pass
 
   @abstractmethod

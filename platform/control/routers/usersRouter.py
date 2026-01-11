@@ -94,7 +94,7 @@ async def login(data: usersSchema.LoginSchema):
       secure=True,
       httponly=True,
       samesite="lax",
-      path="/api/auth/refresh",
+      path="/auth/refresh",
     )
   )
 

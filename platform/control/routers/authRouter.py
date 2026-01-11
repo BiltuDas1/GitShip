@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-from schemas import authSchema
+from fastapi import APIRouter, Cookie
 from services import refresh_token
 from utils.status import Response, HTTPStatus
 from datetime import datetime, timezone
@@ -9,11 +8,16 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 
 @router.post("/refresh")
-async def refresh(data: authSchema.RefreshTokenSchema):
+async def refresh(token: str | None = Cookie(default=None, alias="refresh_token")):
   """
   Access and Refresh Token Renewal Handler
   """
-  jwt = await refresh_token.generate_token(data.refresh_token)
+  if token is None:
+    return Response(
+      status=False, message="refresh_token cookie is not provided"
+    ).status(HTTPStatus.HTTP_401_UNAUTHORIZED)
+
+  jwt = await refresh_token.generate_token(token)
   if jwt is None:
     return Response(status=False, message="refresh token is invalid or expired").status(
       HTTPStatus.HTTP_403_FORBIDDEN

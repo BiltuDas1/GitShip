@@ -6,9 +6,10 @@ from services.verify_email import verify
 from services.login import login_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
+from datetime import datetime, timezone
 
 
-router = APIRouter(prefix="/users", tags=["Authentication"])
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.post("/register")
@@ -64,17 +65,38 @@ async def login(data: usersSchema.LoginSchema):
   """
   User Login Handler
   """
-  user = await login_user(data.email, data.password)
-  if user is None:
+  jwt = await login_user(data.email, data.password)
+  if jwt is None:
     return Response(status=False, message="invalid email or password").status(
       HTTPStatus.HTTP_400_BAD_REQUEST
     )
 
-  return Response(
-    status=True,
-    message="login successful",
-    data={"firstname": user.firstname, "lastname": user.lastname, "email": user.email},
-  ).status(HTTPStatus.HTTP_200_OK)
+  return (
+    Response(status=True, message="login successful")
+    .status(HTTPStatus.HTTP_200_OK)
+    .add_cookie(
+      key="access_token",
+      value=jwt.access_token.getToken(),
+      expires=datetime.fromtimestamp(
+        timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
+      ),
+      secure=True,
+      httponly=True,
+      samesite="lax",
+      path="/",
+    )
+    .add_cookie(
+      key="refresh_token",
+      value=jwt.refresh_token.getToken(),
+      expires=datetime.fromtimestamp(
+        timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
+      ),
+      secure=True,
+      httponly=True,
+      samesite="lax",
+      path="/api/auth/refresh",
+    )
+  )
 
 
 # Password Related Routing

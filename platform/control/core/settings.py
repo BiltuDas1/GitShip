@@ -3,7 +3,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from tortoise import Tortoise
 from . import environ, debug
 from contextlib import asynccontextmanager
-from utils import email
+from utils import email, eddsa
 import db
 
 
@@ -11,6 +11,17 @@ DB_URI = environ.ENV.get("POSTGRESQL_URI")
 
 # Frontend Settings
 FRONTEND_URL = environ.ENV.get("FRONTEND_URL") or "http://127.0.0.1:5173"
+
+# EdDSA Key
+if (key := environ.ENV.get("EDDSA_PRIVATE_KEY")) is not None:
+  EDDSA_KEY = eddsa.EdDSA(key)
+  del key
+else:
+  raise EnvironmentError("EDDSA_PRIVATE_KEY is not set")
+
+# User Token
+REFRESH_TOKEN_EXPIRY = 3 * 24 * 60 * 60  # 3 Days
+ACCESS_TOKEN_EXPIRY = 10 * 60  # 10 Minutes
 
 
 def InitializeORM(app: FastAPI):

@@ -1,0 +1,10 @@
+@use "colors/dark" as *;
+@use "colors/cyberdark";
+
+body {
+  font-family: $font-family-base;
+  letter-spacing: -0.02em;
+  background-color: cyberdark.$bg-body;
+  margin: 0;
+  padding: 0;
+}

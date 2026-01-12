@@ -1,0 +1,45 @@
+// ==========================================
+// 1. THE PALETTE (Stealth/Cyber Theme)
+// ==========================================
+
+// Neutrals (The "Black" Scale)
+$black-void: #050505; // Main page background
+$black-card: #121212; // The login modal background
+$black-input: #0a0a0a; // Input field background (Inset)
+$grey-stroke: #222222; // Circuit lines and subtle borders
+$grey-button: #1c1c1e; // Social media button background (Apple/Google/X)
+
+// Accents
+$blue-electric: #007aff; // Primary Action
+$blue-hover: #0062cc; // Darker shade for hover states
+
+// Typography
+$white: #ffffff;
+$grey-primary: #e5e5e5; // High readability text
+$grey-muted: #86868b; // Placeholders, subtitles
+$grey-dark: #424245; // Icons inside inputs (like the lock icon)
+
+// ==========================================
+// 2. SEMANTIC USAGE
+// ==========================================
+
+// Layout
+$bg-body: $black-void;
+$bg-surface: $black-card;
+$border-circuit: $grey-stroke;
+
+// Inputs & Forms
+$input-bg: $black-input;
+$input-border: transparent; // This design uses background contrast, not borders
+$input-text: $white;
+$input-placeholder: $grey-muted;
+$input-icon: $grey-dark;
+
+// Actions
+$btn-primary-bg: $blue-electric;
+$btn-primary-text: $white;
+$btn-secondary-bg: $grey-button; // For the social icons at bottom
+
+// Typography
+$text-heading: $white;
+$text-link: $white; // "Sign up" is white in this design

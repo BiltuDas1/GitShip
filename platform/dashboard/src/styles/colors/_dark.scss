@@ -1,0 +1,48 @@
+// ==========================================
+// 1. THE PALETTE (Raw Color Primitives)
+// ==========================================
+
+// The Voids (Backgrounds)
+$black-void: #050505; // The deepest background
+$black-surface: #0f0f0f; // The card background
+$black-elevated: #1a1a1a; // Nav pills, Footer accents
+
+// The Accents (Blurple/Indigo)
+$blurple-500: #6366f1; // Lighter/Hover state
+$blurple-600: #5865f2; // Primary "Stripe-like" button color
+$blurple-text: #818cf8; // "View pricing" links and active text
+
+// The Typography Scale
+$white: #ffffff;
+$grey-100: #e5e7eb; // High legibility body text
+$grey-400: #9ca3af; // Subtitles, copyright
+$grey-600: #4b5563; // Crossed out items (disabled state)
+
+// ==========================================
+// 2. SEMANTIC USAGE (Functional Variables)
+// ==========================================
+
+// Global Layout
+$bg-body: $black-void;
+$bg-card: $black-surface;
+$bg-pill: $black-elevated;
+
+// Typography Defaults
+$text-heading: $white;
+$text-body: $grey-100;
+$text-subtitle: $grey-400;
+$text-disabled: $grey-600;
+$text-link: $blurple-text;
+
+// Interactive Elements (Buttons & Actions)
+$btn-primary-bg: $blurple-600;
+$btn-primary-text: $white;
+$btn-primary-hover: $blurple-500;
+
+// Borders & Dividers
+// Note: This design uses minimal borders, but if needed:
+$border-subtle: $black-elevated;
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+$font-family-base: "Inter", sans-serif;

@@ -1,0 +1,43 @@
+// ==========================================
+// 1. THE PALETTE (Raw Colors)
+// ==========================================
+
+// Neutrals (Dark Mode Foundation)
+$charcoal-900: #131517; // Deepest background
+$charcoal-800: #1e2026; // Card/Surface background
+$charcoal-700: #2c3038; // Borders, grid lines, dividers
+
+// Accents (Neon/Vibrant)
+$blue-primary: #2f80ed; // "Generate Report" button, primary trends
+$green-mint: #27c688; // Positive growth, success
+$red-salmon: #f75555; // Negative growth, notifications
+$orange-muted: #f2994a; // Secondary warnings, specific charts
+
+// Typography
+$white: #ffffff;
+$grey-cool: #9ca3af; // Subtitles, axis labels
+
+// ==========================================
+// 2. SEMANTIC USAGE (Best Practice)
+// ==========================================
+
+// Layout & Backgrounds
+$bg-app: $charcoal-900;
+$bg-sidebar: $charcoal-900;
+$bg-card: $charcoal-800;
+$border-light: $charcoal-700;
+
+// Typography
+$text-heading: $white;
+$text-body: $grey-cool;
+$text-muted: mix($grey-cool, $bg-card, 70%); // Calculated darker grey
+
+// Interactive Elements
+$color-brand: $blue-primary;
+$btn-primary-bg: $blue-primary;
+$btn-primary-text: $white;
+
+// Data Visualization (Status)
+$status-success: $green-mint;
+$status-danger: $red-salmon;
+$status-warning: $orange-muted;

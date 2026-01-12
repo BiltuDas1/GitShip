@@ -1,0 +1,100 @@
+@use "../colors/dark" as *;
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none; // Standard syntax
+  -webkit-user-select: none; // Safari
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // IE10+
+
+  $margin-left-right: 1rem; // Set the margin of the left and right size of the element
+
+  div.logo {
+    color: $text-heading;
+    margin-left: $margin-left-right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      display: inline-block;
+      height: 2rem;
+      width: 2rem;
+      pointer-events: none;
+    }
+
+    p {
+      font-weight: 900;
+      font-size: 1.5rem;
+    }
+  }
+
+  ul {
+    background-color: $bg-card;
+    display: flex;
+    padding: 0;
+    border-radius: 2rem;
+    box-shadow: 1px 1px 1px rgb(66, 66, 66);
+
+    li {
+      color: $text-heading;
+      list-style-type: none;
+      position: relative;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      z-index: 3;
+      transition: color 0.4s ease;
+      font-weight: 500;
+
+      .active {
+        position: absolute;
+        background-color: $text-heading;
+        border-radius: 2rem;
+        z-index: -1;
+        inset: 0;
+      }
+
+      &.selected {
+        color: $bg-card;
+      }
+    }
+  }
+
+  div.login-register {
+    button {
+      padding: 1rem;
+      cursor: pointer;
+      margin-right: $margin-left-right;
+      border: none;
+      font-weight: 500;
+      transition:
+        color 0.3s ease-in,
+        background-color 0.3s ease-in;
+
+      &.login {
+        background-color: $bg-card;
+        color: $text-heading;
+        box-shadow: 0px 1px 1px rgb(66, 66, 66);
+
+        &:hover {
+          background-color: $text-heading;
+          color: $bg-card;
+        }
+      }
+
+      &.register {
+        background-color: $text-heading;
+        color: $bg-card;
+
+        &:hover {
+          background-color: $bg-card;
+          color: $text-heading;
+          box-shadow: 0px 1px 1px rgb(66, 66, 66);
+        }
+      }
+    }
+  }
+}

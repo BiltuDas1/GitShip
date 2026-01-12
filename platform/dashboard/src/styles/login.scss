@@ -1,0 +1,100 @@
+@use "colors/dark";
+@use "colors/cyberdark";
+
+div.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  form.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem 2rem 2rem;
+    background-color: cyberdark.$bg-surface;
+    border-radius: 1rem;
+    box-shadow: 0px -1px 1px rgb(66, 66, 66);
+
+    img.logo {
+      display: inline-block;
+      height: 5rem;
+      width: 5rem;
+      pointer-events: none;
+      margin-top: 0;
+    }
+
+    div.meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .title {
+        color: cyberdark.$input-text;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .description {
+        color: cyberdark.$input-placeholder;
+
+        a {
+          color: cyberdark.$input-text;
+          text-decoration: none;
+        }
+      }
+    }
+
+    div.user-input {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+      margin-top: 2rem;
+
+      @mixin input-size {
+        display: block;
+        width: 23rem;
+        height: 2.5rem;
+        margin: 0;
+        border: none;
+        box-sizing: border-box;
+        border-radius: 0.5rem;
+      }
+
+      div.email-input,
+      div.password-input {
+        width: 100%;
+        height: 2.5rem;
+
+        input {
+          @include input-size;
+          background-color: cyberdark.$input-bg;
+          color: cyberdark.$input-text;
+          padding-left: 2rem;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        svg {
+          width: 1.4rem;
+          pointer-events: none;
+          position: absolute;
+          margin-top: 0.5rem;
+          margin-left: 0.2rem;
+        }
+      }
+
+      button {
+        @include input-size;
+        background-color: cyberdark.$btn-primary-bg;
+        color: cyberdark.$btn-primary-text;
+      }
+    }
+  }
+}

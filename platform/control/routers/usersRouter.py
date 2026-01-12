@@ -1,9 +1,11 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Cookie
+from fastapi.responses import Response as ResponseEmpty
 from schemas import usersSchema
 from services.register import register_new_user
 from services.reset_password import reset_password, set_password
 from services.verify_email import verify
 from services.login import login_user
+from services.logout import logout_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
 from datetime import datetime, timezone
@@ -97,6 +99,17 @@ async def login(data: usersSchema.LoginSchema):
       path="/auth/refresh",
     )
   )
+
+
+@router.delete("/session")
+async def logout(token: str | None = Cookie(default=None, alias="refresh_token")):
+  """
+  User Logout Handler
+  """
+  if token is not None:
+    await logout_user(token)
+
+  return ResponseEmpty(status_code=HTTPStatus.HTTP_204_NO_CONTENT)
 
 
 # Password Related Routing

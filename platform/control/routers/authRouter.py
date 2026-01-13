@@ -2,6 +2,7 @@ from fastapi import APIRouter, Cookie
 from services import refresh_token
 from utils.status import Response, HTTPStatus
 from datetime import datetime, timezone
+from core import debug
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -32,7 +33,7 @@ async def refresh(token: str | None = Cookie(default=None, alias="refresh_token"
       expires=datetime.fromtimestamp(
         timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
       ),
-      secure=True,
+      secure=not debug.DEBUG,
       httponly=True,
       samesite="lax",
       path="/",
@@ -43,9 +44,9 @@ async def refresh(token: str | None = Cookie(default=None, alias="refresh_token"
       expires=datetime.fromtimestamp(
         timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
       ),
-      secure=True,
+      secure=not debug.DEBUG,
       httponly=True,
       samesite="lax",
-      path="/api/auth/refresh",
+      path="/auth/refresh",
     )
   )

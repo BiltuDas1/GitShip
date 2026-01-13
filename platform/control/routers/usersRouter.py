@@ -9,6 +9,7 @@ from services.logout import logout_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
 from datetime import datetime, timezone
+from core import debug
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -82,7 +83,7 @@ async def login(data: usersSchema.LoginSchema):
       expires=datetime.fromtimestamp(
         timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
       ),
-      secure=True,
+      secure=not debug.DEBUG,
       httponly=True,
       samesite="lax",
       path="/",
@@ -93,7 +94,7 @@ async def login(data: usersSchema.LoginSchema):
       expires=datetime.fromtimestamp(
         timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
       ),
-      secure=True,
+      secure=not debug.DEBUG,
       httponly=True,
       samesite="lax",
       path="/auth/refresh",

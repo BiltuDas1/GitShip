@@ -1,0 +1,6 @@
+# Development Docker Image
+FROM node:24-alpine
+
+WORKDIR /mnt
+
+CMD [ "sh", "run.sh" ]

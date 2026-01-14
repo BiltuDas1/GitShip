@@ -13,10 +13,16 @@ export function useLogin() {
 
     setIsLoading(true);
     axios
-      .post(`${apiUrl}/users/login`, {
-        email: email,
-        password: password,
-      })
+      .post(
+        `${apiUrl}/users/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        },
+      )
       .then(() => {
         setIsLoading(false);
         toast.success("Login Successful");

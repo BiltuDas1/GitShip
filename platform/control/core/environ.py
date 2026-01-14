@@ -11,9 +11,11 @@ class Env:
     try:
       import dotenv
 
-      self.__env = dotenv.dotenv_values()
-    except ImportError or NameError:
-      self.__env = dict(os.environ)
+      dotenv.dotenv_values()
+    except Exception:
+      pass
+
+    self.__env = dict(os.environ)
 
   def get(self, key: str) -> str | None:
     """

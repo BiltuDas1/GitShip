@@ -2,13 +2,19 @@ import { useState } from "react";
 import "../styles/login.scss";
 import { useLogin } from "../hooks/useLogin";
 import validator from "validator";
-import { EmailIcon, PasswordIcon } from "../components/icons/AuthIcons";
+import {
+  CloseButton,
+  EmailIcon,
+  PasswordIcon,
+} from "../components/icons/AuthIcons";
 import { TooltipInput } from "../components/ui/ToolTipsInput";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useLogin();
+  const navigate = useNavigate();
   const [error, setErrors] = useState<{
     email: null | string;
     password: null | string;
@@ -41,6 +47,14 @@ function Login() {
 
   return (
     <div className="login-container">
+      <div
+        className="closebtn"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <CloseButton />
+      </div>
       <form
         className="login-form"
         action="javascript:;"
@@ -53,7 +67,14 @@ function Login() {
         <div className="meta">
           <h2 className="title">Welcome Back</h2>
           <p className="description">
-            Don't have an account yet? <a href="/auth/register">Register Now</a>
+            Don't have an account yet?{" "}
+            <a
+              onClick={() => {
+                navigate("/auth/register");
+              }}
+            >
+              Register Now
+            </a>
           </p>
         </div>
         <div className="user-input">

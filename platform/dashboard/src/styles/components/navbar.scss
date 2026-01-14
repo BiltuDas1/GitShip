@@ -1,13 +1,11 @@
 @use "../colors/dark" as *;
+@use "../include/utils";
 
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  user-select: none; // Standard syntax
-  -webkit-user-select: none; // Safari
-  -moz-user-select: none; // Firefox
-  -ms-user-select: none; // IE10+
+  @include utils.no-select;
 
   $margin-left-right: 1rem; // Set the margin of the left and right size of the element
 

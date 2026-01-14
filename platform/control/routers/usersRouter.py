@@ -110,7 +110,10 @@ async def logout(token: str | None = Cookie(default=None, alias="refresh_token")
   if token is not None:
     await logout_user(token)
 
-  return ResponseEmpty(status_code=HTTPStatus.HTTP_204_NO_CONTENT)
+  response = ResponseEmpty(status_code=HTTPStatus.HTTP_204_NO_CONTENT)
+  response.delete_cookie(key="refresh_token", path="/auth/refresh")
+  response.delete_cookie(key="access_token", path="/")
+  return response
 
 
 # Password Related Routing

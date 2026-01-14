@@ -9,6 +9,7 @@ Dockerfile.* text eol=lf
 *.py text eol=lf
 *.toml text eol=lf
 *.lock text eol=lf
+Dockerfile.* text eol=lf
 
 # Treat drawio files as binary so diffs don't clutter PRs
 *.drawio.svg binary

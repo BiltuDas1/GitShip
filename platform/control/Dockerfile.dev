@@ -1,0 +1,6 @@
+FROM python:3.13.11-slim-bookworm
+
+RUN pip install poetry
+WORKDIR /mnt
+
+CMD [ "sh", "run.sh" ]

@@ -11,7 +11,7 @@ class Env:
     try:
       import dotenv
 
-      dotenv.dotenv_values()
+      dotenv.load_dotenv()
     except Exception:
       pass
 

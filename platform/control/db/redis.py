@@ -1,15 +1,12 @@
 import redis.asyncio as redis
 from . import cache
-from core import environ
+from core import settings
 
 
 class Redis(cache.Cache):
   def __init__(self):
-    if (cache_uri := environ.ENV.get("REDIS_URI")) is None:
-      raise EnvironmentError("REDIS_URI can't be empty")
-
     self.__conn_pool = redis.ConnectionPool.from_url(
-      url=cache_uri, decode_responses=True
+      url=settings.REDIS_URI, decode_responses=True
     )
     self.__client = redis.Redis(connection_pool=self.__conn_pool)
 

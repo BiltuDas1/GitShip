@@ -16,7 +16,7 @@ validation.setValidationException(app)
 dbconnection.setDBConnectionError(app)
 
 # Initialize Database
-settings.InitializeORM(app)
+db.InitializeORM(app, settings.DB_URI)
 
 # Initialize Cache Database
 _ = db.CACHE

@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Cookie
-from fastapi.responses import Response as ResponseEmpty
 from schemas import usersSchema
 from services.register import register_new_user
 from services.reset_password import reset_password, set_password
@@ -8,8 +7,7 @@ from services.login import login_user
 from services.logout import logout_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
-from datetime import datetime, timezone
-from core import debug
+from utils import auth_cookie
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -74,31 +72,9 @@ async def login(data: usersSchema.LoginSchema):
       HTTPStatus.HTTP_400_BAD_REQUEST
     )
 
-  return (
-    Response(status=True, message="login successful")
-    .status(HTTPStatus.HTTP_200_OK)
-    .add_cookie(
-      key="access_token",
-      value=jwt.access_token.getToken(),
-      expires=datetime.fromtimestamp(
-        timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
-      ),
-      secure=not debug.DEBUG,
-      httponly=True,
-      samesite="lax",
-      path="/",
-    )
-    .add_cookie(
-      key="refresh_token",
-      value=jwt.refresh_token.getToken(),
-      expires=datetime.fromtimestamp(
-        timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
-      ),
-      secure=not debug.DEBUG,
-      httponly=True,
-      samesite="lax",
-      path="/auth/refresh",
-    )
+  return auth_cookie.setAuthCookies(
+    Response(status=True, message="login successful").status(HTTPStatus.HTTP_200_OK),
+    jwt,
   )
 
 
@@ -110,10 +86,7 @@ async def logout(token: str | None = Cookie(default=None, alias="refresh_token")
   if token is not None:
     await logout_user(token)
 
-  response = ResponseEmpty(status_code=HTTPStatus.HTTP_204_NO_CONTENT)
-  response.delete_cookie(key="refresh_token", path="/auth/refresh")
-  response.delete_cookie(key="access_token", path="/")
-  return response
+  return auth_cookie.deleteAuthCookies()
 
 
 # Password Related Routing

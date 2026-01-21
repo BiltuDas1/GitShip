@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Cookie
 from services import refresh_token
+from utils import auth_cookie
 from utils.status import Response, HTTPStatus
-from datetime import datetime, timezone
-from core import debug
 
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -24,29 +23,9 @@ async def refresh(token: str | None = Cookie(default=None, alias="refresh_token"
       HTTPStatus.HTTP_403_FORBIDDEN
     )
 
-  return (
-    Response(status=True, message="token generated successfully")
-    .status(HTTPStatus.HTTP_200_OK)
-    .add_cookie(
-      key="access_token",
-      value=jwt.access_token.getToken(),
-      expires=datetime.fromtimestamp(
-        timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
-      ),
-      secure=not debug.DEBUG,
-      httponly=True,
-      samesite="lax",
-      path="/",
-    )
-    .add_cookie(
-      key="refresh_token",
-      value=jwt.refresh_token.getToken(),
-      expires=datetime.fromtimestamp(
-        timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
-      ),
-      secure=not debug.DEBUG,
-      httponly=True,
-      samesite="lax",
-      path="/auth/refresh",
-    )
+  return auth_cookie.setAuthCookies(
+    Response(status=True, message="token generated successfully").status(
+      HTTPStatus.HTTP_200_OK
+    ),
+    jwt,
   )

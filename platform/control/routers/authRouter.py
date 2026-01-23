@@ -5,7 +5,7 @@ from utils.status import Response, HTTPStatus
 import db
 
 
-router = APIRouter(prefix="/auth", tags=["Authentication"])
+router = APIRouter(prefix="/auth", tags=["Authentication"])  # gitleaks:allow
 
 
 @router.post("/refresh")

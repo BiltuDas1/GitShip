@@ -1,9 +1,9 @@
-from utils import jwt
+from utils import jwt, auth_token
 import db
 from models import User
 
 
-async def generate_token(token: str) -> jwt.JWT | None:
+async def generate_token(token: str, cache: db.Cache) -> auth_token.AuthToken | None:
   """
   Generate a new access and refresh token, based on the existing refresh token
 
@@ -11,27 +11,28 @@ async def generate_token(token: str) -> jwt.JWT | None:
   :type token: str
   """
   # Verify if the JWT Token is valid or not
-  jwt_token = jwt.JWT.ToRefreshToken(token)
+  jwt_token: auth_token.refresh_token.AuthRefreshToken | None = (
+    jwt.JWT.to_refresh_token(token)
+  )
   if jwt_token is None:
     return None
 
-  jti = jwt_token.getJTI()
-  refresh_jti = f"refresh_token:{jti}"
-  user_id = await db.CACHE.get(refresh_jti)
-  await db.CACHE.remove(refresh_jti)
+  user_id = await cache.get_id(jwt_token.get_jti())
   if user_id is None:
     return None
 
   # Check if the user account is valid or not
   user = await User.get_or_none(id=user_id)
   if user is None:
+    await cache.remove_token(jwt_token.get_jti())
     return None
 
   # Generate a new access token and refresh token (Refresh Token Rotation)
-  new_jwt = jwt.JWT(user)
-  new_refresh_jti = f"refresh_token:{new_jwt.refresh_token.getJTI()}"
-  expire_at = new_jwt.refresh_token.expiry_time()
-  await db.CACHE.set(key=new_refresh_jti, value=str(user.id))
-  await db.CACHE.setExpiry(key=new_refresh_jti, expire_at=expire_at)
+  new_jwt: auth_token.AuthToken = jwt.JWT(user)
+  await cache.update_token(
+    jwt_token.get_jti(),
+    new_jwt.refresh_token.get_jti(),
+    new_jwt.refresh_token.expiry_time(),
+  )
 
   return new_jwt

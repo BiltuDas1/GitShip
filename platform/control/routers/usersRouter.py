@@ -7,7 +7,9 @@ from services.login import login_user
 from services.logout import logout_user
 from services import exceptions
 from utils.status import Response, HTTPStatus
-from utils import auth_cookie
+from utils import auth_cookie, email
+import db
+from core import settings
 
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -24,6 +26,9 @@ async def register(data: usersSchema.RegisterSchema):
       lastname=data.lastname,
       email=data.email,
       password=data.password,
+      email_service=email.EMAIL,
+      sender_email=settings.SENDER_EMAIL,
+      frontend_url=settings.FRONTEND_URL,
     )
 
     return Response(
@@ -66,7 +71,7 @@ async def login(data: usersSchema.LoginSchema):
   """
   User Login Handler
   """
-  jwt = await login_user(data.email, data.password)
+  jwt = await login_user(data.email, data.password, db.CACHE)
   if jwt is None:
     return Response(status=False, message="invalid email or password").status(
       HTTPStatus.HTTP_400_BAD_REQUEST
@@ -84,7 +89,7 @@ async def logout(token: str | None = Cookie(default=None, alias="refresh_token")
   User Logout Handler
   """
   if token is not None:
-    await logout_user(token)
+    await logout_user(token, db.CACHE)
 
   return auth_cookie.deleteAuthCookies()
 
@@ -99,7 +104,12 @@ async def reset(data: usersSchema.ResetPasswordSchema):
   Reset Password Handler
   """
   try:
-    await reset_password(data.email)
+    await reset_password(
+      email=data.email,
+      email_service=email.EMAIL,
+      frontend_url=settings.FRONTEND_URL,
+      link_expire_in=settings.RESET_LINK_EXPIRY,
+    )
 
     return Response(
       status=True, message="a reset password email has been sent to that email address"
@@ -116,7 +126,7 @@ async def update_password(data: usersSchema.UpdatePasswordSchema):
   """
   Update Password Handler (Helper of Reset Password Handler)
   """
-  isSet = await set_password(data.token, data.password)
+  isSet = await set_password(token=data.token, password=data.password)
   if not isSet:
     return Response(status=False, message="invalid token").status(
       HTTPStatus.HTTP_400_BAD_REQUEST

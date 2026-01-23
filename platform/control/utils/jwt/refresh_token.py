@@ -3,6 +3,7 @@ import time
 from core import settings
 from .. import token
 from dataclasses import dataclass, asdict
+from utils.auth_token import refresh_token
 
 
 @dataclass(frozen=True)
@@ -14,7 +15,7 @@ class RefreshTokenPayload:
   type: str = "refresh"
 
 
-class RefreshToken:
+class RefreshToken(refresh_token.AuthRefreshToken):
   def __init__(self, sub: str, refresh_token: str | None = None):
     if refresh_token is not None:
       self.__payload = RefreshTokenPayload(
@@ -41,26 +42,14 @@ class RefreshToken:
       algorithm="EdDSA",
     )
 
-  def getToken(self) -> str:
-    """
-    Returns the Refresh Token
-    """
+  def get_token(self) -> str:
     return self.__token
 
-  def getJTI(self) -> str:
-    """
-    Returns the ID of the Token
-    """
+  def get_jti(self) -> str:
     return self.__payload.jti
 
   def creation_time(self) -> int:
-    """
-    Returns the creation time of the Token
-    """
     return self.__payload.iat
 
   def expiry_time(self) -> int:
-    """
-    Returns the expiry time of the Token
-    """
     return self.__payload.exp

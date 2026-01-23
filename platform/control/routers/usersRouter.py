@@ -71,7 +71,7 @@ async def login(data: usersSchema.LoginSchema):
   """
   User Login Handler
   """
-  jwt = await login_user(data.email, data.password, db.CACHE)
+  jwt = await login_user(data.email, data.password, db.AUTH_STORAGE)
   if jwt is None:
     return Response(status=False, message="invalid email or password").status(
       HTTPStatus.HTTP_400_BAD_REQUEST
@@ -89,7 +89,7 @@ async def logout(token: str | None = Cookie(default=None, alias="refresh_token")
   User Logout Handler
   """
   if token is not None:
-    await logout_user(token, db.CACHE)
+    await logout_user(token, db.AUTH_STORAGE)
 
   return auth_cookie.deleteAuthCookies()
 

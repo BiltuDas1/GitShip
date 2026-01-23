@@ -3,7 +3,9 @@ import db
 from models import User
 
 
-async def generate_token(token: str, cache: db.Cache) -> auth_token.AuthToken | None:
+async def generate_token(
+  token: str, cache: db.AuthStorage
+) -> auth_token.AuthToken | None:
   """
   Generate a new access and refresh token, based on the existing refresh token
 

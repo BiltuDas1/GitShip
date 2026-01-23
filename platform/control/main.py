@@ -21,6 +21,9 @@ db.InitializeORM(app, settings.DB_URI)
 # Initialize Cache Database
 _ = db.CACHE
 
+# Initialize Auth Storage
+_ = db.AUTH_STORAGE
+
 # Initialize Email Server
 _ = email.EMAIL
 

@@ -1,5 +1,5 @@
 import redis.asyncio as redis
-from . import cache
+from . import cache, auth_storage
 from core import settings
 
 
@@ -28,6 +28,14 @@ class Redis(cache.Cache):
   async def close(self):
     await self.__client.aclose(close_connection_pool=True)
 
+
+class RedisAuthStorage(auth_storage.AuthStorage):
+  def __init__(self):
+    self.__conn_pool = redis.ConnectionPool.from_url(
+      url=settings.REDIS_URI, decode_responses=True
+    )
+    self.__client = redis.Redis(connection_pool=self.__conn_pool)
+
   async def add_token(self, jti: str, user_id: str, expire_at: int):
     key = f"refresh_token:{jti}"
     await self.__client.set(name=key, value=user_id, exat=expire_at)
@@ -41,7 +49,13 @@ class Redis(cache.Cache):
     await self.__client.delete(key)
 
   async def update_token(self, old_jti: str, new_jti: str, new_expiry_at: int) -> bool:
-    if not (await self.__client.renamenx(old_jti, new_jti)):
+    old_key = f"refresh_token:{old_jti}"
+    new_key = f"refresh_token:{new_jti}"
+
+    if not (await self.__client.renamenx(old_key, new_key)):
       return False
-    await self.__client.expireat(name=new_jti, when=new_expiry_at)
+    await self.__client.expireat(name=new_key, when=new_expiry_at)
     return True
+
+  async def close(self):
+    await self.__client.aclose(close_connection_pool=True)

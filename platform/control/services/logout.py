@@ -2,7 +2,7 @@ import db
 from utils import jwt, auth_token
 
 
-async def logout_user(token: str, cache: db.Cache) -> bool:
+async def logout_user(token: str, cache: db.AuthStorage) -> bool:
   """
   Removes the refresh token from the Cache database
 

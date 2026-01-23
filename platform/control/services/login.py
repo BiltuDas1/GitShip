@@ -1,10 +1,12 @@
 from models import User
-from utils import jwt
+from utils import jwt, auth_token
 from utils import security
 import db
 
 
-async def login_user(email: str, password: str) -> jwt.JWT | None:
+async def login_user(
+  email: str, password: str, cache: db.Cache
+) -> auth_token.AuthToken | None:
   """
   Checks if the login details are correct or not
   """
@@ -19,10 +21,8 @@ async def login_user(email: str, password: str) -> jwt.JWT | None:
     return None
 
   # Generating JWT and storing it in Cache DB
-  token = jwt.JWT(user)
-
-  key = f"refresh_token:{token.refresh_token.getJTI()}"
-  expire_at = token.refresh_token.expiry_time()
-  await db.CACHE.set(key=key, value=str(user.id))
-  await db.CACHE.setExpiry(key=key, expire_at=expire_at)
+  token: auth_token.AuthToken = jwt.JWT(user)
+  await cache.add_token(
+    token.refresh_token.get_jti(), str(user.id), token.refresh_token.expiry_time()
+  )
   return token

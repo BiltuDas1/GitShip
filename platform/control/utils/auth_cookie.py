@@ -1,11 +1,11 @@
 from utils.status import Response, HTTPStatus
 from fastapi.responses import Response as ResponseEmpty
-from utils import jwt
+from utils import auth_token
 from datetime import datetime, timezone
 from core import debug
 
 
-def setAuthCookies(response: Response, jwt: jwt.JWT) -> Response:
+def setAuthCookies(response: Response, jwt: auth_token.AuthToken) -> Response:
   """
   Stores the JWT Cookie in a Response and return a Response object of it
 
@@ -18,7 +18,7 @@ def setAuthCookies(response: Response, jwt: jwt.JWT) -> Response:
   """
   response.add_cookie(
     key="access_token",
-    value=jwt.access_token.getToken(),
+    value=jwt.access_token.get_token(),
     expires=datetime.fromtimestamp(
       timestamp=jwt.access_token.expiry_time(), tz=timezone.utc
     ),
@@ -30,7 +30,7 @@ def setAuthCookies(response: Response, jwt: jwt.JWT) -> Response:
 
   response.add_cookie(
     key="refresh_token",
-    value=jwt.refresh_token.getToken(),
+    value=jwt.refresh_token.get_token(),
     expires=datetime.fromtimestamp(
       timestamp=jwt.refresh_token.expiry_time(), tz=timezone.utc
     ),

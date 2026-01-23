@@ -1,12 +1,13 @@
 from models import User, VerificationToken, TokenType
 from utils import token
-from utils.email import EMAIL
+from utils.email import Email
 from utils.template import Template, types
-from core import settings
 import exceptions
 
 
-async def reset_password(email: str):
+async def reset_password(
+  email: str, email_service: Email, frontend_url: str, link_expire_in: int
+):
   """
   Send an email for resetting password
   """
@@ -18,14 +19,14 @@ async def reset_password(email: str):
     user=user, token=token.generate_token(), token_type=TokenType.RESET_PASSWORD
   )
 
-  sended = await EMAIL.send(
+  sended = await email_service.send(
     toEmail=user.email,
     subject="Reset Password",
     body=Template(
       types.ResetPassword(
         firstname=user.firstname,
-        reset_link=f"{settings.FRONTEND_URL}/reset?token={verify_obj.token}",
-        expire_in=60 * 10,  # 10 Minutes
+        reset_link=f"{frontend_url}/reset?token={verify_obj.token}",
+        expire_in=link_expire_in,
       )
     ),
   )

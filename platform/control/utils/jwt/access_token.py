@@ -2,6 +2,7 @@ import jwt
 import time
 from core import settings
 from dataclasses import dataclass, asdict
+from utils.auth_token import access_token
 
 
 @dataclass(frozen=True)
@@ -12,7 +13,7 @@ class AccessTokenPayload:
   type: str = "access"
 
 
-class AccessToken:
+class AccessToken(access_token.AuthAccessToken):
   def __init__(self, sub: str, access_token: str | None = None):
     if access_token is not None:
       self.__payload = AccessTokenPayload(
@@ -38,20 +39,11 @@ class AccessToken:
       algorithm="EdDSA",
     )
 
-  def getToken(self) -> str:
-    """
-    Returns the Access Token
-    """
+  def get_token(self) -> str:
     return self.__token
 
   def creation_time(self) -> int:
-    """
-    Returns the creation time of the Token
-    """
     return self.__payload.iat
 
   def expiry_time(self) -> int:
-    """
-    Returns the expiry time of the Token
-    """
     return self.__payload.exp

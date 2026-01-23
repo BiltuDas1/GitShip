@@ -5,7 +5,7 @@ import db
 
 
 async def login_user(
-  email: str, password: str, cache: db.Cache
+  email: str, password: str, cache: db.AuthStorage
 ) -> auth_token.AuthToken | None:
   """
   Checks if the login details are correct or not

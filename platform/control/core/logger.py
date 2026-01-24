@@ -1,5 +1,5 @@
 import logging
-import debug
+from . import debug
 
 
 LOGGER = logging.getLogger("gitship_logger")

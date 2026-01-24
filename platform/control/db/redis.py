@@ -28,6 +28,12 @@ class Redis(cache.Cache):
   async def close(self):
     await self.__client.aclose(close_connection_pool=True)
 
+  def _set_client(self, client):
+    """
+    For Testing Purposes Only
+    """
+    self.__client = client
+
 
 class RedisAuthStorage(auth_storage.AuthStorage):
   def __init__(self):
@@ -59,3 +65,9 @@ class RedisAuthStorage(auth_storage.AuthStorage):
 
   async def close(self):
     await self.__client.aclose(close_connection_pool=True)
+
+  def _set_client(self, client):
+    """
+    For Testing Purposes Only
+    """
+    self.__client = client

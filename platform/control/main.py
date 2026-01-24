@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from core import settings, lifespan
 from routers import usersRouter, authRouter
 from exceptions import validation, dbconnection
-from core import settings
 from utils import email
 import db
 
 
-app = FastAPI(title="GitShip API", lifespan=settings.APILifespan)
+app = FastAPI(title="GitShip API", lifespan=lifespan.APILifespan)
 app.include_router(usersRouter.router)
 app.include_router(authRouter.router)
 

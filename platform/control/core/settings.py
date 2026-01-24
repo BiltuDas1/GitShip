@@ -1,14 +1,10 @@
-from fastapi import FastAPI
-from tortoise import Tortoise
-from . import environ, debug, logger
-from contextlib import asynccontextmanager
-from utils import email, eddsa
-import db
+from . import environ, debug
+from utils import eddsa
 
 
 # PostGredSQL Settings
-if not environ.ENV.exist("POSTGRESQL_URL"):
-  raise EnvironmentError("POSTGRESQL_URL can't be empty")
+if not environ.ENV.exist("POSTGRESQL_URI"):
+  raise EnvironmentError("POSTGRESQL_URI can't be empty")
 DB_URI = str(environ.ENV.get("POSTGRESQL_URI"))
 
 # Redis Settings
@@ -47,17 +43,3 @@ ACCESS_TOKEN_EXPIRY = 10 * 60  # 10 Minutes
 
 # Reset Password
 RESET_LINK_EXPIRY = 10 * 60
-
-
-@asynccontextmanager
-async def APILifespan(app: FastAPI):
-  yield  # All API tasks are here
-
-  await email.EMAIL.close()
-  logger.LOGGER.debug("Closed connection of Email Server")
-  await Tortoise.close_connections()
-  logger.LOGGER.debug("Closed connection of Database Server")
-  await db.CACHE.close()
-  logger.LOGGER.debug("Closed connection of Cache Server")
-  await db.AUTH_STORAGE.close()
-  logger.LOGGER.debug("Closed connection of Auth Storage (Cache) Server")

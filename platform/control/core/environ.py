@@ -32,5 +32,11 @@ class Env:
     else:
       return False
 
+  def update(self, mapping: dict[str, str | None]):
+    """
+    Manually Inject or override environment variables
+    """
+    self.__env.update(mapping)
+
 
 ENV = Env()

@@ -11,7 +11,7 @@ class TokenType(Enum):
 
 class VerificationToken(Model):
   user: fields.OneToOneRelation[User] = fields.OneToOneField(
-    model_name="models.User", on_delete=fields.CASCADE, pk=True
+    model_name="models.User", on_delete=fields.CASCADE, primary_key=True
   )
   token = fields.CharField(max_length=32, unique=True)
   token_type = fields.CharEnumField(

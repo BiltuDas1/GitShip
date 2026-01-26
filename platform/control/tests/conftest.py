@@ -1,10 +1,9 @@
-from . import helper
+from . import environment
 
-helper.load_fake_environment()
+environment.load_fake_environment()
 
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
-from unittest.mock import AsyncMock
 from tortoise import Tortoise
 import db
 from main import app
@@ -48,12 +47,24 @@ async def client():
   """
   Provides an HTTP client for testing and mocks the Redis storage.
   """
-  # Mock Redis components to avoid 'Connection Error' during tests
-  db.CACHE = AsyncMock()
-  db.AUTH_STORAGE = AsyncMock()
-
   # We use ASGITransport to talk directly to the FastAPI app code
   async with AsyncClient(
     transport=ASGITransport(app=app), base_url="http://test"
   ) as ac:
     yield ac
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def clean_db():
+  yield
+
+  # Clean Databases
+  await Tortoise.close_connections()
+  await Tortoise.init(
+    db_url="sqlite://:memory:", modules={"models": ["models"]}
+  )  # gitleaks:allow
+  await Tortoise.generate_schemas()
+
+  # Clean Cache
+  await db.CACHE.cleanall()
+  await db.AUTH_STORAGE.cleanall()

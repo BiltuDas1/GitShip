@@ -22,3 +22,7 @@ class AuthStorage(ABC):
   @abstractmethod
   async def close(self):
     pass
+
+  @abstractmethod
+  async def cleanall(self):
+    pass

@@ -34,6 +34,12 @@ class Redis(cache.Cache):
     """
     self.__client = client
 
+  async def cleanall(self):
+    """
+    Clean the whole database
+    """
+    await self.__client.flushall(True)
+
 
 class RedisAuthStorage(auth_storage.AuthStorage):
   def __init__(self):
@@ -71,3 +77,9 @@ class RedisAuthStorage(auth_storage.AuthStorage):
     For Testing Purposes Only
     """
     self.__client = client
+
+  async def cleanall(self):
+    """
+    Clean the whole database
+    """
+    await self.__client.flushall(True)

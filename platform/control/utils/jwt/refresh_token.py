@@ -29,11 +29,12 @@ class RefreshToken(refresh_token.AuthRefreshToken):
       self.__token = refresh_token
       return
 
+    now = int(time.time())
     self.__payload = RefreshTokenPayload(
       sub=sub,
       jti=token.generate_token(),
-      iat=int(time.time()),
-      exp=int(time.time()) + settings.REFRESH_TOKEN_EXPIRY,
+      iat=now,
+      exp=now + settings.REFRESH_TOKEN_EXPIRY,
     )
 
     self.__token = jwt.encode(
@@ -47,6 +48,9 @@ class RefreshToken(refresh_token.AuthRefreshToken):
 
   def get_jti(self) -> str:
     return self.__payload.jti
+
+  def get_sub(self) -> str:
+    return self.__payload.sub
 
   def creation_time(self) -> int:
     return self.__payload.iat

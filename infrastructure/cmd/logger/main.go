@@ -9,10 +9,10 @@ func main() {
 	Init()
 
 	req := gin.Default()
-	// req.Use(middleware.AuthMiddleWare(Env, Jwt))
+	req.Use(middleware.AuthMiddleWare(Env, Keys))
 
-	req.POST("/ingest", middleware.IngestMiddleware(), ingest)
-	req.GET("/logs/:container_id", logs)
+	req.POST("/ingest", ingest)
+	req.GET("/logs/:deployment_id", middleware.IngestContainersAccess(LogsPath), logs)
 
 	req.Run(":8081")
 }

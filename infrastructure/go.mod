@@ -4,8 +4,10 @@ go 1.25.4
 
 require (
 	github.com/docker/docker v28.5.2+incompatible
+	github.com/fsnotify/fsnotify v1.10.1
 	github.com/gin-gonic/gin v1.11.0
 	github.com/golang-jwt/jwt/v5 v5.3.0
+	github.com/google/uuid v1.6.0
 	github.com/mattn/go-colorable v0.1.14
 	github.com/mattn/go-shellwords v1.0.12
 	github.com/moby/term v0.5.2

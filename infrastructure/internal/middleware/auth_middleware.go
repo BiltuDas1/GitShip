@@ -1,66 +1,36 @@
 package middleware
 
 import (
-	"errors"
-	"strings"
+	"net/http"
 
-	"github.com/BiltuDas1/GitShip/internal/utils"
+	"github.com/BiltuDas1/GitShip/internal/utils/jwt"
+	"github.com/BiltuDas1/GitShip/internal/utils/key"
 	env "github.com/BiltuDas1/GitShip/pkg/environ"
 	"github.com/gin-gonic/gin"
 )
 
-// readAuthToken Reads Authentiation Token from the URL
-func readAuthToken(ctx *gin.Context) (token string, err error) {
-	token = ctx.Query("token")
-	if token == "" {
-		err = errors.New("no authentication token")
-	}
-	return
-}
-
-// verifySecret reads the LOGGER_SECRET from the
-// environment and compares it with token
-func verifySecret(env env.Env, token string) bool {
-	value, err := env.Get("LOGGER_SECRET")
-	if err != nil {
-		return false
-	}
-	if value != token {
-		return false
-	}
-	return true
-}
-
-// verifySignature verifies the if the JWT token is valid or not
-func verifySignature(jwt utils.JWT, payload string) bool {
-	valid, err := jwt.Verify(payload)
-	if err != nil {
-		return false
-	}
-	return valid
-}
-
 // AuthMiddleware is a middleware for authentication of requests
-func AuthMiddleWare(env env.Env, jwt utils.JWT) gin.HandlerFunc {
+func AuthMiddleWare(env env.Env, keys key.Key) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		authToken, err := readAuthToken(ctx)
+		token, err := ctx.Cookie("access_token")
 		if err != nil {
-			ctx.AbortWithStatusJSON(401, map[string]any{
-				"status": false,
-				"error":  err.Error(),
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"status":  false,
+				"message": "no access_token cookie has been passed",
 			})
 			return
 		}
 
-		if ctx.Request.URL.Path == "/ingest" && verifySecret(env, authToken) {
-			ctx.Next()
-		} else if strings.HasPrefix(ctx.Request.URL.Path, "/logs/") && verifySignature(jwt, authToken) {
-			ctx.Next()
-		} else {
-			ctx.AbortWithStatusJSON(401, map[string]any{
-				"status": false,
-				"error":  "authentication failed",
+		accessToken, err := jwt.ParseToken(token, keys.PublicKey)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"status":  false,
+				"message": "invalid or expired access token",
 			})
+			return
 		}
+
+		ctx.Set("access_token", accessToken)
+		ctx.Next()
 	}
 }

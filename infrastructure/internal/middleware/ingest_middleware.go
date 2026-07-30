@@ -1,54 +1,65 @@
 package middleware
 
 import (
-	"regexp"
+	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 
+	"github.com/BiltuDas1/GitShip/internal/utils/jwt"
 	"github.com/gin-gonic/gin"
 )
 
-var disposition_regex = regexp.MustCompile(`^attachment;\s*filename="([a-zA-Z0-9\.\-\_]+)"$`)
-
-// IngestMiddleware verifies the input data whether
-//   - The Content-Type is set to text/plain
-//   - The Content-Disposition contains the filename
-func IngestMiddleware() gin.HandlerFunc {
+// IngestContainerAccess limits the permission of user accessing logs
+func IngestContainersAccess(logs_path string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		contentType := ctx.GetHeader("Content-Type")
-		if contentType == "" {
-			ctx.AbortWithStatusJSON(415, map[string]any{
-				"status": false,
-				"error":  "no Content-Type header found",
+		token, exists := ctx.Get("access_token")
+		if !exists {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				"status":  false,
+				"message": "Authentication Middleware is not working properly",
 			})
 			return
 		}
 
-		if strings.ToLower(contentType) != "text/plain" {
-			ctx.AbortWithStatusJSON(415, map[string]any{
-				"staus": false,
-				"error": "only Content-Type: text/plain supported",
+		accessToken := token.(*jwt.Token)
+		userID := accessToken.GetSub()
+		user_logs_path, err := filepath.Abs(filepath.Join(logs_path, userID))
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				"status":  false,
+				"message": "path resolution failed",
+			})
+			return
+		}
+		err = os.MkdirAll(user_logs_path, 0755)
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInsufficientStorage, gin.H{
+				"status":  false,
+				"message": "unable to create user folder for logs",
 			})
 			return
 		}
 
-		cDisposition := ctx.GetHeader("Content-Disposition")
-		if cDisposition == "" {
-			ctx.AbortWithStatusJSON(400, map[string]any{
-				"status": false,
-				"error":  "Content-Disposition is not set",
+		deployment_id := ctx.Param("deployment_id")
+		target_path, err := filepath.Abs(filepath.Join(user_logs_path, deployment_id+".log"))
+		if err != nil {
+			ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				"status":  false,
+				"message": "path resolution failed",
 			})
 			return
 		}
 
-		if !disposition_regex.MatchString(cDisposition) {
-			ctx.AbortWithStatusJSON(400, map[string]any{
-				"status": false,
-				"error":  "Content-Disposition value contains invalid format",
+		if !strings.HasPrefix(target_path, user_logs_path) {
+			ctx.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
+				"status":  false,
+				"message": "deployment id is invalid",
 			})
 			return
 		}
 
-		ctx.Set("filename", disposition_regex.FindStringSubmatch(cDisposition)[1])
+		ctx.Set("logPath", target_path)
 		ctx.Next()
 	}
 }

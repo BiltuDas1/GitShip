@@ -267,3 +267,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Keys
+*.pem

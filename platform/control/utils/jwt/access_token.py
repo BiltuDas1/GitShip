@@ -27,10 +27,11 @@ class AccessToken(access_token.AuthAccessToken):
       self.__token = access_token
       return
 
+    now = int(time.time())
     self.__payload = AccessTokenPayload(
       sub=sub,
-      iat=int(time.time()),
-      exp=int(time.time()) + settings.ACCESS_TOKEN_EXPIRY,
+      iat=now,
+      exp=now + settings.ACCESS_TOKEN_EXPIRY,
     )
 
     self.__token = jwt.encode(
@@ -41,6 +42,9 @@ class AccessToken(access_token.AuthAccessToken):
 
   def get_token(self) -> str:
     return self.__token
+
+  def get_sub(self) -> str:
+    return self.__payload.sub
 
   def creation_time(self) -> int:
     return self.__payload.iat

@@ -15,7 +15,7 @@
     "framer-motion": "^12.25.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.12.0",
+    "react-router-dom": "^7.18.2",
     "react-toastify": "^11.0.5",
     "tippy.js": "^6.3.7",
     "validator": "^13.15.26"

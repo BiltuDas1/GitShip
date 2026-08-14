@@ -1,0 +1,665 @@
+@use "colors/cyberdark";
+@use "include/utils";
+
+// ==========================================
+// HOMEPAGE — CYBERDARK PALETTE
+// bg-body   : #050505  (same as login void)
+// bg-surface: #121212  (same as login modal box)
+// black-input: #0a0a0a (same as login input bg)
+// border    : #222222  (same as login border lines)
+// blue-elec : #007aff  (same as login CTA button)
+// ==========================================
+
+.homepage-technical {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: cyberdark.$bg-body;
+  color: cyberdark.$grey-primary;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+
+  .tech-container {
+    max-width: 1240px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  // ==========================================
+  // HERO SECTION
+  // ==========================================
+
+  .tech-hero {
+    padding: 5rem 0 4rem;
+    text-align: center;
+    position: relative;
+
+    // Subtle grid-line background
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right,  rgba(34, 34, 34, 0.6) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(34, 34, 34, 0.6) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .tech-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background-color: cyberdark.$bg-surface;  // #121212 — login box color
+      border: 1px solid cyberdark.$border-circuit;  // #222
+      border-radius: 2rem;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      margin-bottom: 1.75rem;
+
+      .pulse-blue {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background-color: cyberdark.$blue-electric;
+        box-shadow: 0 0 8px cyberdark.$blue-electric;
+        flex-shrink: 0;
+      }
+
+      .badge-text {
+        color: cyberdark.$grey-muted;
+        font-weight: 500;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      color: cyberdark.$white;
+      margin: 0 0 1.25rem;
+      max-width: 54rem;
+
+      .text-blue  { color: cyberdark.$blue-electric; }  // #007aff
+      .text-green { color: #3fb950; }
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: cyberdark.$grey-muted;
+      max-width: 42rem;
+      margin: 0 0 2.5rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    // Matches login form button — electric blue #007aff
+    .btn-green-cta {
+      background-color: cyberdark.$btn-primary-bg;
+      color: cyberdark.$btn-primary-text;
+      border: 1px solid transparent;
+      border-radius: 0.4rem;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: cyberdark.$blue-hover;
+        box-shadow: 0 0 20px rgba(cyberdark.$blue-electric, 0.4);
+        transform: translateY(-1px);
+      }
+    }
+
+    // Matches login page card surface — #121212 / #222 border
+    .btn-slate-secondary {
+      background-color: cyberdark.$bg-surface;
+      color: cyberdark.$white;
+      border: 1px solid cyberdark.$border-circuit;
+      border-radius: 0.4rem;
+      padding: 0.85rem 1.6rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #1a1a1a;
+        border-color: #333333;
+        transform: translateY(-1px);
+      }
+    }
+
+    .hero-command-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: cyberdark.$bg-surface;  // #121212
+      border: 1px solid cyberdark.$border-circuit;  // #222
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.85rem 0.5rem 1rem;
+      max-width: 100%;
+      box-sizing: border-box;
+
+      .prompt {
+        color: cyberdark.$blue-electric;
+        font-family: monospace;
+        font-weight: 700;
+      }
+
+      code {
+        font-family: 'ui-monospace', 'SFMono-Regular', 'SF Mono', Menlo, Consolas, monospace;
+        font-size: 0.825rem;
+        color: cyberdark.$grey-primary;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .copy-button {
+        background-color: cyberdark.$black-input;  // #0a0a0a — login input bg
+        border: 1px solid cyberdark.$border-circuit;
+        color: cyberdark.$grey-muted;
+        border-radius: 0.35rem;
+        padding: 0.3rem 0.65rem;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: cyberdark.$white;
+          border-color: #333333;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // METRICS / HIGHLIGHTS BAR
+  // ==========================================
+
+  .metrics-section {
+    padding: 2.5rem 0;
+    border-top: 1px solid cyberdark.$border-circuit;
+    border-bottom: 1px solid cyberdark.$border-circuit;
+    background-color: cyberdark.$bg-surface;   // #121212 — login modal color
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+      gap: 2rem;
+      text-align: center;
+
+      .metric-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        .metric-value {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: cyberdark.$white;
+          letter-spacing: -0.03em;
+        }
+
+        .metric-label {
+          font-size: 0.8rem;
+          color: cyberdark.$grey-muted;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // SHARED SECTION HEADERS
+  // ==========================================
+
+  .section-head {
+    margin-bottom: 3rem;
+
+    &.center {
+      text-align: center;
+
+      p { margin: 0 auto; }
+    }
+
+    .tech-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: cyberdark.$blue-electric;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: cyberdark.$white;
+      margin: 0 0 0.75rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: cyberdark.$grey-muted;
+      margin: 0;
+      max-width: 36rem;
+      line-height: 1.6;
+    }
+  }
+
+  // ==========================================
+  // WHAT GITSHIP CAN DO
+  // ==========================================
+
+  .workflow-section {
+    padding: 5rem 0;
+
+    .pipeline-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 1.5rem;
+
+      .pipeline-step {
+        background-color: cyberdark.$bg-surface;    // #121212
+        border: 1px solid cyberdark.$border-circuit; // #222
+        border-radius: 0.75rem;
+        padding: 2rem 1.5rem;
+        text-align: left;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+          border-color: cyberdark.$blue-electric;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+        }
+
+        .step-icon {
+          width: 2.8rem;
+          height: 2.8rem;
+          border-radius: 0.6rem;
+          background-color: cyberdark.$black-input;   // #0a0a0a — input field bg
+          border: 1px solid cyberdark.$border-circuit;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 1.25rem;
+          color: cyberdark.$blue-electric;
+
+          &.text-blue   { color: cyberdark.$blue-electric; }
+          &.text-purple { color: #bc8cff; }
+          &.text-green  { color: #3fb950; }
+        }
+
+        h4 {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: cyberdark.$white;
+          margin: 0 0 0.5rem;
+        }
+
+        p {
+          font-size: 0.875rem;
+          color: cyberdark.$grey-muted;
+          line-height: 1.6;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // TECH CONSOLE
+  // ==========================================
+
+  .tech-console-section {
+    padding: 5rem 0;
+    border-top: 1px solid cyberdark.$border-circuit;
+    background-color: cyberdark.$bg-surface;  // #121212
+
+    .console-card {
+      max-width: 52rem;
+      margin: 0 auto;
+      background-color: cyberdark.$bg-body;    // #050505 — outer void
+      border: 1px solid cyberdark.$border-circuit;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+      .console-header {
+        background-color: cyberdark.$bg-surface;  // #121212
+        border-bottom: 1px solid cyberdark.$border-circuit;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+
+        .console-tabs {
+          display: flex;
+
+          .console-tab {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 0.85rem 1.25rem;
+            color: cyberdark.$grey-muted;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover { color: cyberdark.$white; }
+
+            &.active {
+              color: cyberdark.$blue-electric;
+              border-bottom-color: cyberdark.$blue-electric;
+            }
+          }
+        }
+
+        .console-status {
+          .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: cyberdark.$blue-electric;
+            letter-spacing: 0.05em;
+
+            .dot-active {
+              width: 0.4rem;
+              height: 0.4rem;
+              border-radius: 50%;
+              background-color: cyberdark.$blue-electric;
+            }
+          }
+        }
+      }
+
+      .console-body {
+        padding: 1.5rem 1.75rem;
+        background-color: cyberdark.$black-input;  // #0a0a0a — deepest, like input bg
+
+        pre {
+          margin: 0;
+          font-family: 'ui-monospace', 'SFMono-Regular', 'SF Mono', Menlo, Consolas, monospace;
+          font-size: 0.85rem;
+          line-height: 1.7;
+          color: cyberdark.$grey-primary;
+          overflow-x: auto;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // SPECS GRID
+  // ==========================================
+
+  .specs-section {
+    padding: 5rem 0;
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 1.5rem;
+
+      .spec-card {
+        background-color: cyberdark.$bg-surface;    // #121212
+        border: 1px solid cyberdark.$border-circuit; // #222
+        border-radius: 0.75rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+        &:hover {
+          transform: translateY(-3px);
+          border-color: cyberdark.$blue-electric;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+        }
+
+        .spec-header {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
+
+          .spec-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 0.5rem;
+            background-color: cyberdark.$black-input;  // #0a0a0a
+            border: 1px solid cyberdark.$border-circuit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: cyberdark.$blue-electric;
+
+            &.text-blue   { color: cyberdark.$blue-electric; }
+            &.text-green  { color: #3fb950; }
+            &.text-purple { color: #bc8cff; }
+          }
+
+          h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: cyberdark.$white;
+            margin: 0;
+          }
+
+          .spec-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: cyberdark.$grey-muted;
+            background-color: cyberdark.$black-input;
+            border: 1px solid cyberdark.$border-circuit;
+            border-radius: 0.3rem;
+            padding: 0.2rem 0.5rem;
+            margin-left: auto;
+          }
+        }
+
+        p {
+          font-size: 0.875rem;
+          color: cyberdark.$grey-muted;
+          line-height: 1.6;
+          margin: 0 0 1.5rem;
+        }
+
+        .spec-list {
+          list-style: none;
+          padding: 0;
+          margin: auto 0 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+
+          li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.825rem;
+            color: cyberdark.$grey-primary;
+          }
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // CTA BANNER
+  // ==========================================
+
+  .tech-cta-section {
+    padding: 5rem 0;
+
+    .cta-banner {
+      background-color: cyberdark.$bg-surface;   // #121212 — matches login modal
+      border: 1px solid cyberdark.$border-circuit;
+      border-radius: 0.75rem;
+      padding: 3.5rem 2rem;
+      text-align: center;
+
+      h2 {
+        font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+        font-weight: 800;
+        color: cyberdark.$white;
+        margin: 0 0 0.75rem;
+        letter-spacing: -0.03em;
+      }
+
+      p {
+        font-size: 1rem;
+        color: cyberdark.$grey-muted;
+        margin: 0 auto 2rem;
+        max-width: 32rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .btn-green-cta {
+          background-color: cyberdark.$btn-primary-bg;
+          color: cyberdark.$btn-primary-text;
+          border: 1px solid transparent;
+          border-radius: 0.4rem;
+          padding: 0.85rem 1.6rem;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: inherit;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: cyberdark.$blue-hover;
+            box-shadow: 0 0 20px rgba(cyberdark.$blue-electric, 0.4);
+            transform: translateY(-1px);
+          }
+        }
+
+        .btn-slate-secondary {
+          background-color: cyberdark.$black-input;
+          color: cyberdark.$white;
+          border: 1px solid cyberdark.$border-circuit;
+          border-radius: 0.4rem;
+          padding: 0.85rem 1.6rem;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: inherit;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #141414;
+            border-color: #333333;
+            transform: translateY(-1px);
+          }
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // FOOTER
+  // ==========================================
+
+  .tech-footer {
+    border-top: 1px solid cyberdark.$border-circuit;
+    padding: 2rem 0;
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+
+      .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+
+        img {
+          height: 1.5rem;
+          width: 1.5rem;
+        }
+
+        .logo-text {
+          font-weight: 700;
+          color: cyberdark.$white;
+          font-size: 0.95rem;
+        }
+
+        .license-tag {
+          font-size: 0.7rem;
+          color: cyberdark.$grey-muted;
+          background-color: cyberdark.$bg-surface;
+          border: 1px solid cyberdark.$border-circuit;
+          border-radius: 0.3rem;
+          padding: 0.15rem 0.45rem;
+        }
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+
+        a {
+          color: cyberdark.$grey-muted;
+          text-decoration: none;
+          font-size: 0.85rem;
+          transition: color 0.2s ease;
+
+          &:hover { color: cyberdark.$white; }
+        }
+      }
+
+      .footer-right {
+        font-size: 0.8rem;
+        color: cyberdark.$grey-muted;
+      }
+    }
+  }
+}

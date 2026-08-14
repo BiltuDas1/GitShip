@@ -10,7 +10,7 @@ import (
 )
 
 // AuthMiddleware is a middleware for authentication of requests
-func AuthMiddleWare(env env.Env, keys key.Key) gin.HandlerFunc {
+func AuthMiddleWare(env env.Env, keys key.Key, origins []string) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		token, err := ctx.Cookie("access_token")
 		if err != nil {

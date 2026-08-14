@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"os"
+	"strings"
 
 	"github.com/BiltuDas1/GitShip/internal/utils"
 	"github.com/BiltuDas1/GitShip/internal/utils/key"
@@ -14,6 +15,17 @@ var Env = env.Env{}
 var Keys = key.Key{}
 
 const LogsPath = "./logs"
+
+var ALLOWED_ORIGINS []string
+
+func loadOrigins() {
+	origins, err := Env.Get("ALLOWED_ORIGINS")
+	utils.FailOnError(err, "Failed to read Origins")
+
+	ALLOWED_ORIGINS = strings.FieldsFunc(origins, func(r rune) bool {
+		return r == ',' || r == ' ' || r == '\n'
+	})
+}
 
 // Initialize required information
 func Init() {
@@ -28,4 +40,5 @@ func Init() {
 	decodedKey, err := base64.StdEncoding.DecodeString(key)
 	utils.FailOnError(err, "Failed to decode Base64 encoded EdDSA Public Key")
 	Keys.LoadPublicKey(decodedKey)
+	loadOrigins()
 }

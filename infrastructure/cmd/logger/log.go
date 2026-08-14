@@ -30,6 +30,7 @@ func readLogs(logFile string, offset *int64) string {
 		return ""
 	}
 	defer file.Close()
+
 	_, err = file.Seek(*offset, io.SeekStart)
 	if err != nil {
 		return ""
@@ -89,6 +90,12 @@ func logs(ctx *gin.Context) {
 	}
 	var bytes int64 = 0
 
+	initialLogs := readLogs(logPath, &bytes)
+	if initialLogs != "" {
+		ctx.SSEvent("init", initialLogs)
+		ctx.Writer.Flush()
+	}
+
 	ctx.Stream(
 		func(w io.Writer) bool {
 			select {
@@ -105,12 +112,11 @@ func logs(ctx *gin.Context) {
 					return false
 				}
 				if event.Has(fsnotify.Write) {
-					ctx.SSEvent("update", readLogs(logPath, &bytes))
-				}
-				return true
-			default:
-				if bytes == 0 {
-					ctx.SSEvent("init", readLogs(logPath, &bytes))
+					newLogs := readLogs(logPath, &bytes)
+					if newLogs != "" {
+						ctx.SSEvent("update", newLogs)
+						ctx.Writer.Flush()
+					}
 				}
 				return true
 			}

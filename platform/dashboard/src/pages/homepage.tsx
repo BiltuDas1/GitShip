@@ -5,35 +5,11 @@ import "../styles/homepage.scss";
 import { useNavigate } from "react-router-dom";
 
 // ────────────────────────────────────────────────────────────
-// Technical Icons
+// SVG Icons
 // ────────────────────────────────────────────────────────────
 
-const ServerIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-    <line x1="6" y1="6" x2="6.01" y2="6" />
-    <line x1="6" y1="18" x2="6.01" y2="18" />
-  </svg>
-);
-
-const CpuIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
-    <rect x="9" y="9" width="6" height="6" />
-    <line x1="9" y1="1" x2="9" y2="4" />
-    <line x1="15" y1="1" x2="15" y2="4" />
-    <line x1="9" y1="20" x2="9" y2="23" />
-    <line x1="15" y1="20" x2="15" y2="23" />
-    <line x1="20" y1="9" x2="23" y2="9" />
-    <line x1="20" y1="15" x2="23" y2="15" />
-    <line x1="1" y1="9" x2="4" y2="9" />
-    <line x1="1" y1="15" x2="4" y2="15" />
-  </svg>
-);
-
 const GitBranchIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="6" y1="3" x2="6" y2="15" />
     <circle cx="18" cy="6" r="3" />
     <circle cx="6" cy="18" r="3" />
@@ -41,16 +17,41 @@ const GitBranchIcon = () => (
   </svg>
 );
 
-const ShieldCheckIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    <path d="M9 12l2 2 4-4" />
+const BoxIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+    <line x1="12" y1="22.08" x2="12" y2="12" />
   </svg>
 );
 
-const ActivityIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+const TerminalIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+);
+
+const GlobeIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
+const KeyIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 2l-2 2m-1.5 1.5L14 9l-1.5-1.5L11 9l-1-1-1.5 1.5L6 8l-4 4 6 6 8-8 1.5 1.5 1.5-1.5L20 9l2-2-1-1z" />
+    <circle cx="7.5" cy="16.5" r="1.5" />
+  </svg>
+);
+
+const RefreshIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="23 4 23 10 17 10" />
+    <polyline points="1 20 1 14 7 14" />
+    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
   </svg>
 );
 
@@ -67,74 +68,164 @@ const CheckIcon = () => (
   </svg>
 );
 
-const CopyIcon = () => (
-  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+const ServerStackIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+    <line x1="6" y1="6" x2="6.01" y2="6" />
+    <line x1="6" y1="18" x2="6.01" y2="18" />
+  </svg>
+);
+
+const ShieldLockIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <circle cx="12" cy="11" r="1.5" />
+    <path d="M12 12.5V15" />
+  </svg>
+);
+
+const ChevronDownIcon = ({ open }: { open: boolean }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width="18"
+    height="18"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }}
+  >
+    <polyline points="6 9 12 15 18 9" />
   </svg>
 );
 
 // ────────────────────────────────────────────────────────────
-// Code Snippets for Interactive Tech Console
+// Features & FAQ Data
 // ────────────────────────────────────────────────────────────
 
-const sampleDeployPayload = `{
-  "image": "myapp:latest",
-  "source": "git_repository",
-  "repository": "https://github.com/yourname/myapp",
-  "environments": {
-    "DEBUG": "false",
-    "PORT": "8080"
+const features = [
+  {
+    icon: <GitBranchIcon />,
+    title: "Deploy from Git",
+    tag: "Automated Builds",
+    description: "Connect your GitHub repository. GitShip automatically pulls code, builds the container environment, and deploys it on your Docker machine.",
   },
-  "port": 8080,
-  "cmd": "uvicorn main:app --host 0.0.0.0 --port 8080"
-}`;
+  {
+    icon: <BoxIcon />,
+    title: "Docker Registry Support",
+    tag: "Instant Images",
+    description: "Deploy pre-built images directly from Docker Hub, GHCR, or private registries with custom ports, startup commands, and environment variables.",
+  },
+  {
+    icon: <TerminalIcon />,
+    title: "Live Streaming Logs",
+    tag: "Real-time Telemetry",
+    description: "Inspect stdout and stderr outputs in real-time right inside your browser for instant debugging and diagnostics.",
+  },
+  {
+    icon: <GlobeIcon />,
+    title: "Custom Domains & Routing",
+    tag: "Reverse Proxy",
+    description: "Attach your own domain names with built-in dynamic reverse proxy routing straight to your running applications.",
+  },
+  {
+    icon: <KeyIcon />,
+    title: "Environment & Secrets",
+    tag: "Secure Storage",
+    description: "Securely inject environment variables and secret tokens into container runtimes without exposing them in source code.",
+  },
+  {
+    icon: <RefreshIcon />,
+    title: "Rollbacks & Redeploys",
+    tag: "Zero Downtime",
+    description: "Easily restart containers, trigger fresh deployments, or roll back to earlier releases with a single click.",
+  },
+];
 
-const sampleLogs = `[10:14:02.102] [CONTROL] Deploy request authenticated
-[10:14:02.245] [AMQP]    Task queued → gitship_deploy_tasks (task-8a92f)
-[10:14:02.410] [WORKER]  Picked up task-8a92f from queue
-[10:14:03.112] [DOCKER]  Pulling image / building from source...
-[10:14:05.890] [DEPLOY]  Container [c-7b910e] started on docker.internal:8080
-[10:14:06.001] [LOGGER]  Log stream attached to c-7b910e
-[10:14:06.050] [PROXY]   Route registered: myapp.local → 127.0.0.1:8080 [HEALTHY]`;
+const useCases = [
+  {
+    title: "Web Apps & Frontends",
+    icon: <GlobeIcon />,
+    examples: "Next.js · Vite · React · Vue · Astro",
+    description: "Deploy server-rendered frontends or static web apps with automatic reverse proxy routing and SSL certificates.",
+  },
+  {
+    title: "Backend APIs & Microservices",
+    icon: <ServerStackIcon />,
+    examples: "FastAPI · Express · Gin · Django · NestJS",
+    description: "Run high-performance REST and GraphQL APIs with environment variable injection and live log monitoring.",
+  },
+  {
+    title: "Databases & In-Memory Stores",
+    icon: <BoxIcon />,
+    examples: "PostgreSQL · Redis · MongoDB · MySQL",
+    description: "Launch database containers with dedicated persistent storage volumes and secure private network access.",
+  },
+  {
+    title: "Background Workers & Queues",
+    icon: <RefreshIcon />,
+    examples: "Celery · BullMQ · RabbitMQ · Go Routines",
+    description: "Run autonomous workers and asynchronous task consumers that scale reliably on your private servers.",
+  },
+];
+
+const faqs = [
+  {
+    q: "What deployment sources does GitShip support?",
+    a: "GitShip supports both Git repositories (fetching your source code and building container environments automatically) and Docker registries (pulling pre-built public or private container images).",
+  },
+  {
+    q: "Do I need Kubernetes to run GitShip?",
+    a: "No. GitShip is designed specifically to eliminate Kubernetes complexity. It runs directly on standard Docker hosts, keeping setup simple, lightweight, and memory usage minimal (~50MB RAM footprint).",
+  },
+  {
+    q: "How does GitShip handle domain routing?",
+    a: "GitShip features a dynamic reverse proxy that automatically routes HTTP traffic from your custom domain or subdomains directly to the container's designated port.",
+  },
+  {
+    q: "Can I self-host GitShip on any Linux server?",
+    a: "Yes! As long as your server has Docker installed, you can run GitShip on any cloud VPS (AWS, DigitalOcean, Hetzner, GCP) or your own bare-metal machines.",
+  },
+  {
+    q: "Is GitShip free and open source?",
+    a: "Yes! GitShip is completely open source under the MIT license, allowing you to self-host and customize it freely for personal or commercial projects.",
+  },
+];
 
 function Homepage() {
   const navigate = useNavigate();
-  const [consoleTab, setConsoleTab] = useState<"payload" | "logs">("payload");
-  const [copied, setCopied] = useState(false);
+  const [dashboardTab, setDashboardTab] = useState<"logs" | "env" | "overview">("overview");
+  const [interactiveStep, setInteractiveStep] = useState<1 | 2 | 3>(1);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const command = "git clone https://github.com/BiltuDas1/GitShip.git";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
   };
 
   return (
     <div className="homepage-technical">
-      {/* ── Header Navbar ── */}
+      {/* ── Sticky Glassmorphic Navbar with ScrollSpy ── */}
       <Navbar />
 
-      {/* ── Hero Section ── */}
+      {/* ── Section 1: Hero Section ── */}
       <section className="tech-hero">
         <div className="tech-container">
           <div className="hero-badge">
             <span className="pulse-blue" />
-            <span className="badge-text">GitShip · Self-hosted Container Platform</span>
+            <span className="badge-text">GitShip · Self-Hosted Container Platform</span>
           </div>
 
           <h1 className="hero-title">
-            Deploy Containers from{" "}
-            <span className="text-blue">Git</span> or a{" "}
+            Deploy Containers from <span className="text-blue">Git</span> or a{" "}
             <span className="text-blue">Docker Registry</span>
           </h1>
 
           <p className="hero-subtitle">
-            GitShip is a lightweight, self-hosted platform for managing containerized
-            applications across your own Docker machines — without Kubernetes complexity.
-            Build from a GitHub repo or pull from any registry, then monitor everything
-            from one unified dashboard.
+            A lightweight, self-hosted platform to orchestrate containerized applications across your
+            own Docker machines. Build directly from GitHub repos or run pre-built images with live
+            log streaming, reverse proxy routing, and zero Kubernetes complexity.
           </p>
 
           <div className="hero-cta-group">
@@ -142,7 +233,7 @@ function Homepage() {
               className="btn-green-cta"
               onClick={() => navigate("/auth/register")}
             >
-              <span>Get Started</span>
+              <span>Get Started Free</span>
               <ArrowRightIcon />
             </button>
 
@@ -154,228 +245,523 @@ function Homepage() {
             </button>
           </div>
 
-          <div className="hero-command-box">
-            <span className="prompt">$</span>
-            <code>{command}</code>
-            <button className="copy-button" onClick={handleCopy}>
-              <CopyIcon />
-              <span>{copied ? "Copied" : "Copy"}</span>
-            </button>
+          {/* Meaningful Value Highlights */}
+          <div className="hero-value-pills">
+            <div className="value-pill">
+              <CheckIcon />
+              <span>1-Click Git & Registry Deploy</span>
+            </div>
+            <div className="value-pill">
+              <CheckIcon />
+              <span>Automatic Reverse Proxy & SSL</span>
+            </div>
+            <div className="value-pill">
+              <CheckIcon />
+              <span>Real-Time Log Telemetry</span>
+            </div>
+            <div className="value-pill">
+              <CheckIcon />
+              <span>100% Self-Hosted & Private</span>
+            </div>
+          </div>
+
+          {/* Live Interactive Product Card Mockup */}
+          <div className="hero-dashboard-preview">
+            <div className="preview-header">
+              <div className="window-dots">
+                <span className="dot dot-red" />
+                <span className="dot dot-yellow" />
+                <span className="dot dot-green" />
+              </div>
+              <div className="preview-title">dashboard.gitship.local</div>
+              <div className="preview-status">
+                <span className="status-indicator" />
+                <span>Cluster Healthy</span>
+              </div>
+            </div>
+
+            <div className="preview-content">
+              <div className="app-card">
+                <div className="app-main">
+                  <div className="app-meta">
+                    <div className="app-icon">
+                      <BoxIcon />
+                    </div>
+                    <div>
+                      <div className="app-name">production-api</div>
+                      <div className="app-url">https://api.gitship.dev</div>
+                    </div>
+                  </div>
+                  <div className="app-badge-live">
+                    <span className="dot-live" />
+                    <span>Running · 8080</span>
+                  </div>
+                </div>
+
+                <div className="preview-nav-tabs">
+                  <button
+                    className={`preview-tab ${dashboardTab === "overview" ? "active" : ""}`}
+                    onClick={() => setDashboardTab("overview")}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    className={`preview-tab ${dashboardTab === "logs" ? "active" : ""}`}
+                    onClick={() => setDashboardTab("logs")}
+                  >
+                    Live Logs
+                  </button>
+                  <button
+                    className={`preview-tab ${dashboardTab === "env" ? "active" : ""}`}
+                    onClick={() => setDashboardTab("env")}
+                  >
+                    Environment
+                  </button>
+                </div>
+
+                <div className="preview-body">
+                  <AnimatePresence mode="wait">
+                    {dashboardTab === "overview" && (
+                      <motion.div
+                        key="overview"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="tab-overview"
+                      >
+                        <div className="overview-stats">
+                          <div className="stat-box">
+                            <span className="stat-label">Source</span>
+                            <span className="stat-val">GitHub (main)</span>
+                          </div>
+                          <div className="stat-box">
+                            <span className="stat-label">Last Deploy</span>
+                            <span className="stat-val">Just now (Auto)</span>
+                          </div>
+                          <div className="stat-box">
+                            <span className="stat-label">CPU / RAM</span>
+                            <span className="stat-val">0.8% · 48 MB</span>
+                          </div>
+                          <div className="stat-box">
+                            <span className="stat-label">Routing</span>
+                            <span className="stat-val">api.gitship.dev:8080</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {dashboardTab === "logs" && (
+                      <motion.div
+                        key="logs"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="tab-logs"
+                      >
+                        <pre>
+                          <code>
+                            {`[INFO]  Container [c-4f92a1] initialized on port 8080
+[INFO]  Attached reverse proxy route: api.gitship.dev -> 127.0.0.1:8080
+[INFO]  Listening for incoming HTTP requests on 0.0.0.0:8080
+[DEBUG] GET /healthz 200 OK - 1.2ms
+[INFO]  Real-time telemetry stream active · 0 errors detected`}
+                          </code>
+                        </pre>
+                      </motion.div>
+                    )}
+
+                    {dashboardTab === "env" && (
+                      <motion.div
+                        key="env"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="tab-env"
+                      >
+                        <div className="env-row">
+                          <span className="env-key">NODE_ENV</span>
+                          <span className="env-val">production</span>
+                        </div>
+                        <div className="env-row">
+                          <span className="env-key">PORT</span>
+                          <span className="env-val">8080</span>
+                        </div>
+                        <div className="env-row">
+                          <span className="env-key">DATABASE_URL</span>
+                          <span className="env-val">••••••••••••••••••••••••</span>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Feature Highlights Bar ── */}
+      {/* ── Section 2: Technology Ecosystem Strip ── */}
+      <section className="ecosystem-section">
+        <div className="tech-container">
+          <p className="ecosystem-label">Deploy Any Stack or Containerized Service</p>
+          <div className="ecosystem-tags">
+            <span className="eco-tag">Docker</span>
+            <span className="eco-tag">GitHub</span>
+            <span className="eco-tag">Python & FastAPI</span>
+            <span className="eco-tag">Node.js & Next.js</span>
+            <span className="eco-tag">Go & Gin</span>
+            <span className="eco-tag">PostgreSQL</span>
+            <span className="eco-tag">Redis</span>
+            <span className="eco-tag">Rust</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 3: Metrics Strip ── */}
       <section className="metrics-section">
         <div className="tech-container">
           <div className="metrics-grid">
             <div className="metric-card">
-              <span className="metric-value">Git & Registry</span>
-              <span className="metric-label">Two flexible deploy sources</span>
+              <span className="metric-value">Hybrid Source</span>
+              <span className="metric-label">Deploy from Git repositories or Docker registries</span>
             </div>
             <div className="metric-card">
-              <span className="metric-value">Distributed</span>
-              <span className="metric-label">Separate Control, Deploy & Logger nodes</span>
+              <span className="metric-value">Real-Time Logs</span>
+              <span className="metric-label">Instant streaming output for fast troubleshooting</span>
             </div>
             <div className="metric-card">
-              <span className="metric-value">Real-time</span>
-              <span className="metric-label">Live container log streaming</span>
+              <span className="metric-value">Dynamic Proxy</span>
+              <span className="metric-label">Automated custom domain & port routing</span>
             </div>
             <div className="metric-card">
-              <span className="metric-value">Auto Routing</span>
-              <span className="metric-label">Dynamic reverse proxy per app</span>
+              <span className="metric-value">Zero K8s Overhead</span>
+              <span className="metric-label">Lightweight, fast, and simple to self-host</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── What GitShip Can Do ── */}
-      <section className="workflow-section">
+      {/* ── Section 4: Features Grid ── */}
+      <section id="features" className="features-section">
         <div className="tech-container">
           <div className="section-head center">
-            <span className="tech-label">What GitShip Can Do</span>
-            <h2>Ship Containers Your Way</h2>
+            <span className="tech-label">Product Capabilities</span>
+            <h2>Everything You Need to Ship and Manage Apps</h2>
             <p>
-              Whether you're deploying a production image or iterating directly on source code,
-              GitShip handles provisioning, routing, and live monitoring.
+              From source code to production containers, GitShip gives you full control
+              over your deployment infrastructure without DevOps complexity.
             </p>
           </div>
 
-          <div className="pipeline-diagram">
-            <div className="pipeline-step">
-              <div className="step-icon text-blue">
-                <GitBranchIcon />
+          <div className="features-grid">
+            {features.map((feature, idx) => (
+              <div key={idx} className="feature-card">
+                <div className="feature-card-top">
+                  <div className="feature-icon">{feature.icon}</div>
+                  <span className="feature-tag">{feature.tag}</span>
+                </div>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
               </div>
-              <h4>Deploy from a Git Repo</h4>
-              <p>
-                Connect any GitHub repository. GitShip fetches the source,
-                builds the container environment, and launches it automatically
-                on your Docker machine — no manual steps.
-              </p>
-            </div>
-
-            <div className="pipeline-step">
-              <div className="step-icon text-blue">
-                <ServerIcon />
-              </div>
-              <h4>Deploy from a Docker Registry</h4>
-              <p>
-                Pull and run pre-built images from any public or private Docker
-                registry. Inject custom environment variables, map ports, and ship
-                in seconds.
-              </p>
-            </div>
-
-            <div className="pipeline-step">
-              <div className="step-icon text-blue">
-                <ActivityIcon />
-              </div>
-              <h4>Monitor Logs in Real Time</h4>
-              <p>
-                Watch container output stream directly to your dashboard as it
-                happens. The Logger node ingests live Docker logs so you never
-                fly blind after a deploy.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── Interactive Console ── */}
-      <section className="tech-console-section">
+      {/* ── Section 5: How It Works & Interactive Workflow ── */}
+      <section id="how-it-works" className="workflow-section">
         <div className="tech-container">
-          <div className="section-head">
-            <span className="tech-label">See It In Action</span>
-            <h2>Deploy Payload & Live Log Output</h2>
-            <p>
-              A deploy request is a clean JSON payload. Inspect the payload schema
-              and view the streaming logs generated as containers start up.
-            </p>
+          <div className="section-head center">
+            <span className="tech-label">Interactive Workflow</span>
+            <h2>Deploying with GitShip in 3 Simple Steps</h2>
+            <p>Experience how frictionless container deployment feels on GitShip.</p>
           </div>
 
-          <div className="console-card">
-            <div className="console-header">
-              <div className="console-tabs">
-                <button
-                  className={`console-tab ${consoleTab === "payload" ? "active" : ""}`}
-                  onClick={() => setConsoleTab("payload")}
-                >
-                  <span>Deploy Payload</span>
-                </button>
-                <button
-                  className={`console-tab ${consoleTab === "logs" ? "active" : ""}`}
-                  onClick={() => setConsoleTab("logs")}
-                >
-                  <span>Container Log Stream</span>
-                </button>
-              </div>
-
-              <div className="console-status">
-                <span className="status-badge">
-                  <span className="dot-active" />
-                  <span>CONNECTED</span>
-                </span>
-              </div>
+          {/* Interactive 3-Step Builder Component */}
+          <div className="interactive-builder-card">
+            <div className="builder-stepper">
+              <button
+                className={`step-btn ${interactiveStep === 1 ? "active" : ""}`}
+                onClick={() => setInteractiveStep(1)}
+              >
+                <span className="step-badge">1</span>
+                <span>Select Source</span>
+              </button>
+              <div className="step-connector" />
+              <button
+                className={`step-btn ${interactiveStep === 2 ? "active" : ""}`}
+                onClick={() => setInteractiveStep(2)}
+              >
+                <span className="step-badge">2</span>
+                <span>Configure App</span>
+              </button>
+              <div className="step-connector" />
+              <button
+                className={`step-btn ${interactiveStep === 3 ? "active" : ""}`}
+                onClick={() => setInteractiveStep(3)}
+              >
+                <span className="step-badge">3</span>
+                <span>Launch & Route</span>
+              </button>
             </div>
 
-            <div className="console-body">
+            <div className="builder-body">
               <AnimatePresence mode="wait">
-                <motion.pre
-                  key={consoleTab}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <code>{consoleTab === "payload" ? sampleDeployPayload : sampleLogs}</code>
-                </motion.pre>
+                {interactiveStep === 1 && (
+                  <motion.div
+                    key="step-1"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="builder-panel"
+                  >
+                    <div className="source-options">
+                      <div className="source-option-card selected">
+                        <div className="source-icon">
+                          <GitBranchIcon />
+                        </div>
+                        <div>
+                          <h4>Git Repository (GitHub)</h4>
+                          <p>Connect your repo URL. GitShip auto-builds container images on push.</p>
+                          <div className="mock-input">https://github.com/myteam/web-api.git</div>
+                        </div>
+                      </div>
+
+                      <div className="source-option-card">
+                        <div className="source-icon">
+                          <BoxIcon />
+                        </div>
+                        <div>
+                          <h4>Pre-built Docker Image</h4>
+                          <p>Pull public or private images directly from Docker Hub or GHCR.</p>
+                          <div className="mock-input">redis:7-alpine / postgres:16</div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {interactiveStep === 2 && (
+                  <motion.div
+                    key="step-2"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="builder-panel"
+                  >
+                    <div className="config-grid">
+                      <div className="config-item">
+                        <label>Application Port</label>
+                        <div className="mock-input">8080 (Auto-detected)</div>
+                      </div>
+                      <div className="config-item">
+                        <label>Custom Domain</label>
+                        <div className="mock-input">api.mycompany.dev</div>
+                      </div>
+                      <div className="config-item full">
+                        <label>Environment Variables & Secrets</label>
+                        <div className="mock-input">NODE_ENV=production · DATABASE_URL=••••••••</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {interactiveStep === 3 && (
+                  <motion.div
+                    key="step-3"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="builder-panel"
+                  >
+                    <div className="launch-summary">
+                      <div className="launch-status-card">
+                        <div className="status-top">
+                          <span className="live-dot" />
+                          <span className="status-text">Application Successfully Deployed</span>
+                          <span className="status-latency">14ms latency</span>
+                        </div>
+                        <div className="live-url">
+                          <span>🌐 https://api.mycompany.dev</span>
+                          <span className="ssl-badge">🔒 SSL Active</span>
+                        </div>
+                      </div>
+                      <div className="quick-controls">
+                        <span className="control-btn">Restart Container</span>
+                        <span className="control-btn">Rollback Version</span>
+                        <span className="control-btn">Stream Logs</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </AnimatePresence>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Architecture Cards ── */}
-      <section className="specs-section">
+      {/* ── Section 6: Real-World Use Cases ── */}
+      <section className="usecases-section">
         <div className="tech-container">
-          <div className="section-head">
-            <span className="tech-label">Platform Architecture</span>
-            <h2>Three Nodes, One Unified Platform</h2>
-            <p>
-              Each service has a dedicated role, keeping GitShip lightweight,
-              scalable, and easy to self-host on your own hardware.
-            </p>
+          <div className="section-head center">
+            <span className="tech-label">Versatile Deployments</span>
+            <h2>What You Can Build and Run on GitShip</h2>
+            <p>From modern web frontends to stateful backend databases.</p>
           </div>
 
-          <div className="specs-grid">
-            <div className="spec-card">
-              <div className="spec-header">
-                <div className="spec-icon text-blue">
-                  <ShieldCheckIcon />
+          <div className="usecases-grid">
+            {useCases.map((uc, idx) => (
+              <div key={idx} className="usecase-card">
+                <div className="usecase-header">
+                  <div className="usecase-icon">{uc.icon}</div>
+                  <h4>{uc.title}</h4>
                 </div>
-                <h3>Control Node</h3>
-                <span className="spec-tag">Python · FastAPI</span>
+                <div className="usecase-examples">{uc.examples}</div>
+                <p>{uc.description}</p>
               </div>
-              <p>
-                The central management hub. Handles user accounts, JWT authentication,
-                and dispatches deployment tasks via RabbitMQ message queue.
-              </p>
-              <ul className="spec-list">
-                <li><CheckIcon /> User registration & JWT auth</li>
-                <li><CheckIcon /> Dispatches deploys via AMQP broker</li>
-                <li><CheckIcon /> View logs from any running container</li>
-              </ul>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 7: Why GitShip & Comparison ── */}
+      <section id="why" className="why-section">
+        <div className="tech-container">
+          <div className="section-head center">
+            <span className="tech-label">Why GitShip</span>
+            <h2>Built for Developers Who Value Simplicity & Privacy</h2>
+            <p>A modern, lightweight alternative to complicated cloud platforms.</p>
+          </div>
+
+          <div className="why-grid">
+            <div className="why-card">
+              <div className="why-check">
+                <CheckIcon />
+              </div>
+              <div>
+                <h4>Your Code, Your Infrastructure</h4>
+                <p>Run on your own servers or VPS. Your source code, containers, and data never leave your private environment.</p>
+              </div>
             </div>
 
-            <div className="spec-card">
-              <div className="spec-header">
-                <div className="spec-icon text-blue">
-                  <CpuIcon />
-                </div>
-                <h3>Deploy Node</h3>
-                <span className="spec-tag">Go · AMQP</span>
+            <div className="why-card">
+              <div className="why-check">
+                <CheckIcon />
               </div>
-              <p>
-                An autonomous worker that consumes deploy tasks, pulls images or builds
-                from source, and launches containers on target Docker machines.
-              </p>
-              <ul className="spec-list">
-                <li><CheckIcon /> Pulls images from any Docker registry</li>
-                <li><CheckIcon /> Builds & launches Git-sourced containers</li>
-                <li><CheckIcon /> Semaphore-bounded concurrent workers</li>
-              </ul>
+              <div>
+                <h4>Simple, Unified Dashboard</h4>
+                <p>Manage all your web services, APIs, and background containers from one clean, responsive dashboard.</p>
+              </div>
             </div>
 
-            <div className="spec-card">
-              <div className="spec-header">
-                <div className="spec-icon text-blue">
-                  <ActivityIcon />
-                </div>
-                <h3>Logger Node</h3>
-                <span className="spec-tag">Go · Gin</span>
+            <div className="why-card">
+              <div className="why-check">
+                <CheckIcon />
               </div>
-              <p>
-                A high-throughput ingestion service that continuously reads logs
-                from active Docker containers and streams them to the dashboard.
-              </p>
-              <ul className="spec-list">
-                <li><CheckIcon /> Real-time log streaming from containers</li>
-                <li><CheckIcon /> Token-authenticated ingestion endpoint</li>
-                <li><CheckIcon /> Low-latency log retrieval for the dashboard</li>
-              </ul>
+              <div>
+                <h4>Instant Visibility & Health</h4>
+                <p>Know whether your apps are healthy, starting, or encountering errors with clear status indicators and logs.</p>
+              </div>
+            </div>
+
+            <div className="why-card">
+              <div className="why-check">
+                <CheckIcon />
+              </div>
+              <div>
+                <h4>Zero Vendor Lock-in</h4>
+                <p>Standard Docker container runtimes mean your apps remain 100% portable and standard across any host.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison Matrix Table */}
+          <div className="comparison-box">
+            <h3>How GitShip Compares</h3>
+            <div className="comparison-table-wrapper">
+              <table className="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Capability</th>
+                    <th className="highlight-col">GitShip</th>
+                    <th>Kubernetes</th>
+                    <th>Traditional PaaS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Setup Time</td>
+                    <td className="highlight-col">⚡ Under 5 minutes</td>
+                    <td>Days / Weeks</td>
+                    <td>Instant (Proprietary)</td>
+                  </tr>
+                  <tr>
+                    <td>Resource Overhead</td>
+                    <td className="highlight-col">Minimal (~50MB RAM)</td>
+                    <td>Heavy (1-2GB+ base)</td>
+                    <td>N/A (Managed)</td>
+                  </tr>
+                  <tr>
+                    <td>Privacy & Data Ownership</td>
+                    <td className="highlight-col">100% Self-Hosted</td>
+                    <td>Self-hosted</td>
+                    <td>Vendor Hosted</td>
+                  </tr>
+                  <tr>
+                    <td>License</td>
+                    <td className="highlight-col">MIT Open Source</td>
+                    <td>Open Source</td>
+                    <td>Proprietary / Paid</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── CTA Banner ── */}
+      {/* ── Section 8: FAQ Accordion ── */}
+      <section id="faq" className="faq-section">
+        <div className="tech-container">
+          <div className="section-head center">
+            <span className="tech-label">FAQ</span>
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about GitShip and container orchestration.</p>
+          </div>
+
+          <div className="faq-list">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div key={idx} className={`faq-item ${isOpen ? "open" : ""}`}>
+                  <button className="faq-question" onClick={() => toggleFaq(idx)}>
+                    <span>{faq.q}</span>
+                    <ChevronDownIcon open={isOpen} />
+                  </button>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="faq-answer"
+                    >
+                      <p>{faq.a}</p>
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 9: Call to Action Banner ── */}
       <section className="tech-cta-section">
         <div className="tech-container">
           <div className="cta-banner">
-            <h2>Run GitShip on your own infrastructure</h2>
+            <h2>Ready to start shipping containers?</h2>
             <p>
-              Self-hosted, open source under the MIT license. No vendor lock-in,
-              no Kubernetes required.
+              Create your account to manage apps from the dashboard, or explore the open source repository.
             </p>
             <div className="cta-buttons">
               <button
@@ -403,7 +789,7 @@ function Homepage() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
+      {/* ── Section 10: Footer ── */}
       <footer className="tech-footer">
         <div className="tech-container">
           <div className="footer-row">
@@ -438,7 +824,7 @@ function Homepage() {
             </div>
 
             <div className="footer-right">
-              © 2026 GitShip. MIT License.
+              © 2026 GitShip. Free & Open Source.
             </div>
           </div>
         </div>

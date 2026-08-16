@@ -2,12 +2,12 @@
 @use "include/utils";
 
 // ==========================================
-// HOMEPAGE — CYBERDARK PALETTE
-// bg-body   : #050505  (same as login void)
-// bg-surface: #121212  (same as login modal box)
-// black-input: #0a0a0a (same as login input bg)
-// border    : #222222  (same as login border lines)
-// blue-elec : #007aff  (same as login CTA button)
+// HOMEPAGE — CYBERDARK PALETTE & RICH PRODUCT UI
+// bg-body   : #050505  (void background)
+// bg-surface: #121212  (card/modal surface)
+// black-input: #0a0a0a (nested/inset blocks)
+// border    : #222222  (circuit stroke borders)
+// blue-elec : #007aff  (primary electric blue)
 // ==========================================
 
 .homepage-technical {
@@ -17,13 +17,13 @@
   background-color: cyberdark.$bg-body;
   color: cyberdark.$grey-primary;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 
   .tech-container {
-    max-width: 1240px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     box-sizing: border-box;
   }
 
@@ -32,21 +32,20 @@
   // ==========================================
 
   .tech-hero {
-    padding: 5rem 0 4rem;
+    padding: 5rem 0 3.5rem;
     text-align: center;
     position: relative;
 
-    // Subtle grid-line background
     &::before {
       content: "";
       position: absolute;
       inset: 0;
       background-size: 40px 40px;
       background-image:
-        linear-gradient(to right,  rgba(34, 34, 34, 0.6) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(34, 34, 34, 0.6) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+        linear-gradient(to right, rgba(34, 34, 34, 0.45) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(34, 34, 34, 0.45) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
       pointer-events: none;
     }
 
@@ -62,12 +61,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.6rem;
-      background-color: cyberdark.$bg-surface;  // #121212 — login box color
-      border: 1px solid cyberdark.$border-circuit;  // #222
+      background-color: cyberdark.$bg-surface;
+      border: 1px solid cyberdark.$border-circuit;
       border-radius: 2rem;
       padding: 0.35rem 1rem;
       font-size: 0.8rem;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
 
       .pulse-blue {
         width: 0.45rem;
@@ -85,24 +84,25 @@
     }
 
     .hero-title {
-      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-size: clamp(2.3rem, 4.6vw, 3.8rem);
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -0.04em;
       color: cyberdark.$white;
       margin: 0 0 1.25rem;
-      max-width: 54rem;
+      max-width: 52rem;
 
-      .text-blue  { color: cyberdark.$blue-electric; }  // #007aff
-      .text-green { color: #3fb950; }
+      .text-blue {
+        color: cyberdark.$blue-electric;
+      }
     }
 
     .hero-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.65;
       color: cyberdark.$grey-muted;
-      max-width: 42rem;
-      margin: 0 0 2.5rem;
+      max-width: 44rem;
+      margin: 0 0 2.25rem;
     }
 
     .hero-cta-group {
@@ -113,7 +113,6 @@
       margin-bottom: 2rem;
     }
 
-    // Matches login form button — electric blue #007aff
     .btn-green-cta {
       background-color: cyberdark.$btn-primary-bg;
       color: cyberdark.$btn-primary-text;
@@ -136,7 +135,6 @@
       }
     }
 
-    // Matches login page card surface — #121212 / #222 border
     .btn-slate-secondary {
       background-color: cyberdark.$bg-surface;
       color: cyberdark.$white;
@@ -156,92 +154,347 @@
       }
     }
 
-    .hero-command-box {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background-color: cyberdark.$bg-surface;  // #121212
-      border: 1px solid cyberdark.$border-circuit;  // #222
-      border-radius: 0.5rem;
-      padding: 0.5rem 0.85rem 0.5rem 1rem;
-      max-width: 100%;
-      box-sizing: border-box;
+    // Meaningful Value Highlights Pill Bar
+    .hero-value-pills {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
 
-      .prompt {
-        color: cyberdark.$blue-electric;
-        font-family: monospace;
-        font-weight: 700;
-      }
-
-      code {
-        font-family: 'ui-monospace', 'SFMono-Regular', 'SF Mono', Menlo, Consolas, monospace;
-        font-size: 0.825rem;
-        color: cyberdark.$grey-primary;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      .copy-button {
-        background-color: cyberdark.$black-input;  // #0a0a0a — login input bg
-        border: 1px solid cyberdark.$border-circuit;
-        color: cyberdark.$grey-muted;
-        border-radius: 0.35rem;
-        padding: 0.3rem 0.65rem;
-        cursor: pointer;
-        font-size: 0.75rem;
-        font-weight: 500;
-        display: flex;
+      .value-pill {
+        display: inline-flex;
         align-items: center;
-        gap: 0.35rem;
-        transition: all 0.2s ease;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+        color: cyberdark.$grey-muted;
+        background-color: cyberdark.$bg-surface;
+        border: 1px solid cyberdark.$border-circuit;
+        border-radius: 2rem;
+        padding: 0.35rem 0.85rem;
 
-        &:hover {
-          color: cyberdark.$white;
-          border-color: #333333;
+        svg {
+          flex-shrink: 0;
+        }
+
+        span {
+          font-weight: 500;
+          color: cyberdark.$grey-primary;
         }
       }
     }
   }
 
   // ==========================================
-  // METRICS / HIGHLIGHTS BAR
+  // HERO DASHBOARD MOCKUP PREVIEW
+  // ==========================================
+
+  .hero-dashboard-preview {
+    width: 100%;
+    max-width: 48rem;
+    background-color: cyberdark.$bg-surface;
+    border: 1px solid cyberdark.$border-circuit;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+    text-align: left;
+
+    .preview-header {
+      background-color: cyberdark.$black-input;
+      border-bottom: 1px solid cyberdark.$border-circuit;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .window-dots {
+        display: flex;
+        gap: 0.35rem;
+
+        .dot {
+          width: 0.6rem;
+          height: 0.6rem;
+          border-radius: 50%;
+
+          &.dot-red {
+            background-color: #ff5f56;
+          }
+
+          &.dot-yellow {
+            background-color: #ffbd2e;
+          }
+
+          &.dot-green {
+            background-color: #27c93f;
+          }
+        }
+      }
+
+      .preview-title {
+        font-size: 0.75rem;
+        font-family: monospace;
+        color: cyberdark.$grey-muted;
+      }
+
+      .preview-status {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #3fb950;
+
+        .status-indicator {
+          width: 0.4rem;
+          height: 0.4rem;
+          border-radius: 50%;
+          background-color: #3fb950;
+        }
+      }
+    }
+
+    .preview-content {
+      padding: 1.5rem;
+
+      .app-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+
+        .app-main {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 1rem;
+
+          .app-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+
+            .app-icon {
+              width: 2.5rem;
+              height: 2.5rem;
+              border-radius: 0.5rem;
+              background-color: cyberdark.$black-input;
+              border: 1px solid cyberdark.$border-circuit;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: cyberdark.$blue-electric;
+            }
+
+            .app-name {
+              font-weight: 700;
+              font-size: 1.05rem;
+              color: cyberdark.$white;
+            }
+
+            .app-url {
+              font-size: 0.8rem;
+              color: cyberdark.$blue-electric;
+              font-family: monospace;
+            }
+          }
+
+          .app-badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background-color: rgba(63, 185, 80, 0.1);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+            color: #3fb950;
+            padding: 0.3rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+
+            .dot-live {
+              width: 0.4rem;
+              height: 0.4rem;
+              border-radius: 50%;
+              background-color: #3fb950;
+            }
+          }
+        }
+
+        .preview-nav-tabs {
+          display: flex;
+          gap: 0.5rem;
+          border-bottom: 1px solid cyberdark.$border-circuit;
+          padding-bottom: 0.5rem;
+
+          .preview-tab {
+            background: transparent;
+            border: 1px solid transparent;
+            color: cyberdark.$grey-muted;
+            padding: 0.35rem 0.85rem;
+            border-radius: 0.35rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              color: cyberdark.$white;
+            }
+
+            &.active {
+              background-color: cyberdark.$black-input;
+              border-color: cyberdark.$border-circuit;
+              color: cyberdark.$white;
+            }
+          }
+        }
+
+        .preview-body {
+          background-color: cyberdark.$black-input;
+          border: 1px solid cyberdark.$border-circuit;
+          border-radius: 0.5rem;
+          padding: 1rem;
+          min-height: 7.5rem;
+
+          .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+            gap: 1rem;
+
+            .stat-box {
+              display: flex;
+              flex-direction: column;
+              gap: 0.25rem;
+
+              .stat-label {
+                font-size: 0.7rem;
+                color: cyberdark.$grey-muted;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+              }
+
+              .stat-val {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: cyberdark.$white;
+              }
+            }
+          }
+
+          .tab-logs {
+            pre {
+              margin: 0;
+              font-family: monospace;
+              font-size: 0.75rem;
+              line-height: 1.6;
+              color: cyberdark.$grey-primary;
+              overflow-x: auto;
+            }
+          }
+
+          .tab-env {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .env-row {
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.8rem;
+              font-family: monospace;
+              padding: 0.25rem 0;
+              border-bottom: 1px dashed cyberdark.$border-circuit;
+
+              .env-key {
+                color: cyberdark.$blue-electric;
+              }
+
+              .env-val {
+                color: cyberdark.$grey-muted;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // TECHNOLOGY ECOSYSTEM STRIP
+  // ==========================================
+
+  .ecosystem-section {
+    padding: 1.75rem 0;
+    border-top: 1px solid cyberdark.$border-circuit;
+    background-color: cyberdark.$bg-surface;
+    text-align: center;
+
+    .ecosystem-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: cyberdark.$grey-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+    }
+
+    .ecosystem-tags {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+
+      .eco-tag {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: cyberdark.$grey-primary;
+        background-color: cyberdark.$black-input;
+        border: 1px solid cyberdark.$border-circuit;
+        border-radius: 0.35rem;
+        padding: 0.3rem 0.75rem;
+      }
+    }
+  }
+
+  // ==========================================
+  // METRICS / HIGHLIGHTS STRIP
   // ==========================================
 
   .metrics-section {
-    padding: 2.5rem 0;
+    padding: 2.25rem 0;
     border-top: 1px solid cyberdark.$border-circuit;
     border-bottom: 1px solid cyberdark.$border-circuit;
-    background-color: cyberdark.$bg-surface;   // #121212 — login modal color
+    background-color: cyberdark.$bg-body;
 
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-      gap: 2rem;
+      gap: 1.75rem;
       text-align: center;
 
       .metric-card {
         display: flex;
         flex-direction: column;
-        gap: 0.3rem;
+        gap: 0.25rem;
 
         .metric-value {
-          font-size: 1.5rem;
+          font-size: 1.35rem;
           font-weight: 800;
           color: cyberdark.$white;
-          letter-spacing: -0.03em;
+          letter-spacing: -0.02em;
         }
 
         .metric-label {
           font-size: 0.8rem;
           color: cyberdark.$grey-muted;
           font-weight: 500;
+          line-height: 1.4;
         }
       }
     }
   }
 
   // ==========================================
-  // SHARED SECTION HEADERS
+  // SECTION HEADERS
   // ==========================================
 
   .section-head {
@@ -250,7 +503,9 @@
     &.center {
       text-align: center;
 
-      p { margin: 0 auto; }
+      p {
+        margin: 0 auto;
+      }
     }
 
     .tech-label {
@@ -264,7 +519,7 @@
     }
 
     h2 {
-      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-size: clamp(1.75rem, 3.2vw, 2.3rem);
       font-weight: 800;
       letter-spacing: -0.03em;
       color: cyberdark.$white;
@@ -281,241 +536,568 @@
   }
 
   // ==========================================
-  // WHAT GITSHIP CAN DO
+  // FEATURES GRID
   // ==========================================
 
-  .workflow-section {
-    padding: 5rem 0;
+  .features-section {
+    padding: 5.5rem 0;
 
-    .pipeline-diagram {
+    .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
       gap: 1.5rem;
 
-      .pipeline-step {
-        background-color: cyberdark.$bg-surface;    // #121212
-        border: 1px solid cyberdark.$border-circuit; // #222
+      .feature-card {
+        background-color: cyberdark.$bg-surface;
+        border: 1px solid cyberdark.$border-circuit;
         border-radius: 0.75rem;
-        padding: 2rem 1.5rem;
-        text-align: left;
+        padding: 1.75rem 1.5rem;
         transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 
         &:hover {
           transform: translateY(-3px);
           border-color: cyberdark.$blue-electric;
-          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
         }
 
-        .step-icon {
-          width: 2.8rem;
-          height: 2.8rem;
-          border-radius: 0.6rem;
-          background-color: cyberdark.$black-input;   // #0a0a0a — input field bg
-          border: 1px solid cyberdark.$border-circuit;
+        .feature-card-top {
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
           margin-bottom: 1.25rem;
-          color: cyberdark.$blue-electric;
 
-          &.text-blue   { color: cyberdark.$blue-electric; }
-          &.text-purple { color: #bc8cff; }
-          &.text-green  { color: #3fb950; }
-        }
-
-        h4 {
-          font-size: 1.1rem;
-          font-weight: 700;
-          color: cyberdark.$white;
-          margin: 0 0 0.5rem;
-        }
-
-        p {
-          font-size: 0.875rem;
-          color: cyberdark.$grey-muted;
-          line-height: 1.6;
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  // ==========================================
-  // TECH CONSOLE
-  // ==========================================
-
-  .tech-console-section {
-    padding: 5rem 0;
-    border-top: 1px solid cyberdark.$border-circuit;
-    background-color: cyberdark.$bg-surface;  // #121212
-
-    .console-card {
-      max-width: 52rem;
-      margin: 0 auto;
-      background-color: cyberdark.$bg-body;    // #050505 — outer void
-      border: 1px solid cyberdark.$border-circuit;
-      border-radius: 0.75rem;
-      overflow: hidden;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
-
-      .console-header {
-        background-color: cyberdark.$bg-surface;  // #121212
-        border-bottom: 1px solid cyberdark.$border-circuit;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 1rem;
-
-        .console-tabs {
-          display: flex;
-
-          .console-tab {
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid transparent;
-            padding: 0.85rem 1.25rem;
-            color: cyberdark.$grey-muted;
-            font-family: inherit;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-
-            &:hover { color: cyberdark.$white; }
-
-            &.active {
-              color: cyberdark.$blue-electric;
-              border-bottom-color: cyberdark.$blue-electric;
-            }
-          }
-        }
-
-        .console-status {
-          .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: cyberdark.$blue-electric;
-            letter-spacing: 0.05em;
-
-            .dot-active {
-              width: 0.4rem;
-              height: 0.4rem;
-              border-radius: 50%;
-              background-color: cyberdark.$blue-electric;
-            }
-          }
-        }
-      }
-
-      .console-body {
-        padding: 1.5rem 1.75rem;
-        background-color: cyberdark.$black-input;  // #0a0a0a — deepest, like input bg
-
-        pre {
-          margin: 0;
-          font-family: 'ui-monospace', 'SFMono-Regular', 'SF Mono', Menlo, Consolas, monospace;
-          font-size: 0.85rem;
-          line-height: 1.7;
-          color: cyberdark.$grey-primary;
-          overflow-x: auto;
-        }
-      }
-    }
-  }
-
-  // ==========================================
-  // SPECS GRID
-  // ==========================================
-
-  .specs-section {
-    padding: 5rem 0;
-
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-      gap: 1.5rem;
-
-      .spec-card {
-        background-color: cyberdark.$bg-surface;    // #121212
-        border: 1px solid cyberdark.$border-circuit; // #222
-        border-radius: 0.75rem;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-
-        &:hover {
-          transform: translateY(-3px);
-          border-color: cyberdark.$blue-electric;
-          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
-        }
-
-        .spec-header {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 1rem;
-          flex-wrap: wrap;
-
-          .spec-icon {
-            width: 2.2rem;
-            height: 2.2rem;
-            border-radius: 0.5rem;
-            background-color: cyberdark.$black-input;  // #0a0a0a
+          .feature-icon {
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 0.6rem;
+            background-color: cyberdark.$black-input;
             border: 1px solid cyberdark.$border-circuit;
             display: flex;
             align-items: center;
             justify-content: center;
             color: cyberdark.$blue-electric;
-
-            &.text-blue   { color: cyberdark.$blue-electric; }
-            &.text-green  { color: #3fb950; }
-            &.text-purple { color: #bc8cff; }
           }
 
-          h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: cyberdark.$white;
-            margin: 0;
-          }
-
-          .spec-tag {
+          .feature-tag {
             font-size: 0.7rem;
             font-weight: 600;
             color: cyberdark.$grey-muted;
             background-color: cyberdark.$black-input;
             border: 1px solid cyberdark.$border-circuit;
-            border-radius: 0.3rem;
-            padding: 0.2rem 0.5rem;
-            margin-left: auto;
+            border-radius: 2rem;
+            padding: 0.25rem 0.65rem;
           }
+        }
+
+        h3 {
+          font-size: 1.1rem;
+          font-weight: 700;
+          color: cyberdark.$white;
+          margin: 0 0 0.6rem;
         }
 
         p {
           font-size: 0.875rem;
           color: cyberdark.$grey-muted;
           line-height: 1.6;
-          margin: 0 0 1.5rem;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // WORKFLOW & INTERACTIVE BUILDER
+  // ==========================================
+
+  .workflow-section {
+    padding: 5.5rem 0;
+    border-top: 1px solid cyberdark.$border-circuit;
+    background-color: cyberdark.$bg-surface;
+
+    .interactive-builder-card {
+      max-width: 52rem;
+      margin: 0 auto;
+      background-color: cyberdark.$bg-body;
+      border: 1px solid cyberdark.$border-circuit;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+      .builder-stepper {
+        display: flex;
+        align-items: center;
+        background-color: cyberdark.$black-input;
+        border-bottom: 1px solid cyberdark.$border-circuit;
+        padding: 0.75rem 1.5rem;
+        gap: 0.75rem;
+
+        @media (max-width: 600px) {
+          flex-direction: column;
+          align-items: stretch;
+
+          .step-connector {
+            display: none;
+          }
         }
 
-        .spec-list {
-          list-style: none;
-          padding: 0;
-          margin: auto 0 0;
+        .step-btn {
+          background: transparent;
+          border: none;
+          color: cyberdark.$grey-muted;
+          font-family: inherit;
+          font-size: 0.85rem;
+          font-weight: 600;
           display: flex;
-          flex-direction: column;
-          gap: 0.6rem;
+          align-items: center;
+          gap: 0.5rem;
+          cursor: pointer;
+          padding: 0.4rem 0.75rem;
+          border-radius: 0.4rem;
+          transition: all 0.2s ease;
 
-          li {
+          .step-badge {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background-color: cyberdark.$border-circuit;
+            color: cyberdark.$grey-muted;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.825rem;
-            color: cyberdark.$grey-primary;
+            justify-content: center;
+            font-size: 0.75rem;
+          }
+
+          &.active {
+            color: cyberdark.$white;
+            background-color: rgba(0, 122, 255, 0.1);
+
+            .step-badge {
+              background-color: cyberdark.$blue-electric;
+              color: cyberdark.$white;
+            }
+          }
+        }
+
+        .step-connector {
+          flex: 1;
+          height: 1px;
+          background-color: cyberdark.$border-circuit;
+        }
+      }
+
+      .builder-body {
+        padding: 2rem;
+
+        .source-options {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+          gap: 1.25rem;
+
+          .source-option-card {
+            background-color: cyberdark.$bg-surface;
+            border: 1px solid cyberdark.$border-circuit;
+            border-radius: 0.6rem;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &.selected {
+              border-color: cyberdark.$blue-electric;
+              background-color: rgba(0, 122, 255, 0.05);
+            }
+
+            .source-icon {
+              width: 2.25rem;
+              height: 2.25rem;
+              border-radius: 0.4rem;
+              background-color: cyberdark.$black-input;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: cyberdark.$blue-electric;
+              flex-shrink: 0;
+            }
+
+            h4 {
+              font-size: 0.95rem;
+              color: cyberdark.$white;
+              margin: 0 0 0.25rem;
+            }
+
+            p {
+              font-size: 0.8rem;
+              color: cyberdark.$grey-muted;
+              margin: 0 0 0.75rem;
+              line-height: 1.4;
+            }
+
+            .mock-input {
+              font-size: 0.75rem;
+              font-family: monospace;
+              background-color: cyberdark.$black-input;
+              border: 1px solid cyberdark.$border-circuit;
+              border-radius: 0.3rem;
+              padding: 0.35rem 0.6rem;
+              color: cyberdark.$grey-primary;
+            }
+          }
+        }
+
+        .config-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+          gap: 1.25rem;
+
+          .config-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+
+            &.full {
+              grid-column: 1 / -1;
+            }
+
+            label {
+              font-size: 0.75rem;
+              font-weight: 600;
+              color: cyberdark.$grey-muted;
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            }
+
+            .mock-input {
+              background-color: cyberdark.$bg-surface;
+              border: 1px solid cyberdark.$border-circuit;
+              border-radius: 0.4rem;
+              padding: 0.65rem 0.85rem;
+              font-size: 0.85rem;
+              font-family: monospace;
+              color: cyberdark.$white;
+            }
+          }
+        }
+
+        .launch-summary {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+
+          .launch-status-card {
+            background-color: cyberdark.$bg-surface;
+            border: 1px solid cyberdark.$border-circuit;
+            border-radius: 0.6rem;
+            padding: 1.25rem;
+
+            .status-top {
+              display: flex;
+              align-items: center;
+              gap: 0.6rem;
+              margin-bottom: 0.75rem;
+
+              .live-dot {
+                width: 0.5rem;
+                height: 0.5rem;
+                border-radius: 50%;
+                background-color: #3fb950;
+                box-shadow: 0 0 8px #3fb950;
+              }
+
+              .status-text {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: cyberdark.$white;
+              }
+
+              .status-latency {
+                font-size: 0.75rem;
+                color: #3fb950;
+                background-color: rgba(63, 185, 80, 0.1);
+                border-radius: 0.3rem;
+                padding: 0.15rem 0.45rem;
+                margin-left: auto;
+              }
+            }
+
+            .live-url {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              background-color: cyberdark.$black-input;
+              border: 1px solid cyberdark.$border-circuit;
+              border-radius: 0.4rem;
+              padding: 0.6rem 0.85rem;
+              font-family: monospace;
+              font-size: 0.85rem;
+              color: cyberdark.$blue-electric;
+
+              .ssl-badge {
+                font-size: 0.7rem;
+                color: #3fb950;
+              }
+            }
+          }
+
+          .quick-controls {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+
+            .control-btn {
+              background-color: cyberdark.$bg-surface;
+              border: 1px solid cyberdark.$border-circuit;
+              border-radius: 0.35rem;
+              padding: 0.45rem 0.85rem;
+              font-size: 0.8rem;
+              font-weight: 500;
+              color: cyberdark.$grey-primary;
+              cursor: pointer;
+
+              &:hover {
+                border-color: cyberdark.$blue-electric;
+                color: cyberdark.$white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // USE CASES SECTION
+  // ==========================================
+
+  .usecases-section {
+    padding: 5.5rem 0;
+
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      gap: 1.5rem;
+
+      .usecase-card {
+        background-color: cyberdark.$bg-surface;
+        border: 1px solid cyberdark.$border-circuit;
+        border-radius: 0.75rem;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.25s ease, border-color 0.25s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          border-color: cyberdark.$blue-electric;
+        }
+
+        .usecase-header {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+
+          .usecase-icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 0.4rem;
+            background-color: cyberdark.$black-input;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: cyberdark.$blue-electric;
+          }
+
+          h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: cyberdark.$white;
+            margin: 0;
+          }
+        }
+
+        .usecase-examples {
+          font-size: 0.75rem;
+          font-family: monospace;
+          color: cyberdark.$blue-electric;
+          margin-bottom: 0.75rem;
+        }
+
+        p {
+          font-size: 0.85rem;
+          color: cyberdark.$grey-muted;
+          line-height: 1.5;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // WHY GITSHIP SECTION
+  // ==========================================
+
+  .why-section {
+    padding: 5.5rem 0;
+    border-top: 1px solid cyberdark.$border-circuit;
+    background-color: cyberdark.$bg-surface;
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+
+      .why-card {
+        background-color: cyberdark.$bg-body;
+        border: 1px solid cyberdark.$border-circuit;
+        border-radius: 0.75rem;
+        padding: 1.75rem;
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+
+        .why-check {
+          width: 1.75rem;
+          height: 1.75rem;
+          border-radius: 50%;
+          background-color: rgba(0, 122, 255, 0.1);
+          border: 1px solid rgba(0, 122, 255, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: 0.1rem;
+        }
+
+        h4 {
+          font-size: 1rem;
+          font-weight: 700;
+          color: cyberdark.$white;
+          margin: 0 0 0.4rem;
+        }
+
+        p {
+          font-size: 0.85rem;
+          color: cyberdark.$grey-muted;
+          line-height: 1.5;
+          margin: 0;
+        }
+      }
+    }
+
+    .comparison-box {
+      background-color: cyberdark.$bg-body;
+      border: 1px solid cyberdark.$border-circuit;
+      border-radius: 0.75rem;
+      padding: 2rem;
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: cyberdark.$white;
+        margin: 0 0 1.5rem;
+        text-align: center;
+      }
+
+      .comparison-table-wrapper {
+        overflow-x: auto;
+
+        .comparison-table {
+          width: 100%;
+          border-collapse: collapse;
+          text-align: left;
+          font-size: 0.875rem;
+
+          th,
+          td {
+            padding: 0.85rem 1.25rem;
+            border-bottom: 1px solid cyberdark.$border-circuit;
+          }
+
+          th {
+            color: cyberdark.$grey-muted;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+          }
+
+          td {
+            color: cyberdark.$grey-muted;
+
+            &.highlight-col {
+              color: cyberdark.$white;
+              font-weight: 600;
+            }
+          }
+
+          .highlight-col {
+            background-color: rgba(0, 122, 255, 0.05);
+            border-left: 1px solid rgba(0, 122, 255, 0.2);
+            border-right: 1px solid rgba(0, 122, 255, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  // ==========================================
+  // FAQ SECTION
+  // ==========================================
+
+  .faq-section {
+    padding: 5.5rem 0;
+
+    .faq-list {
+      max-width: 46rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .faq-item {
+        background-color: cyberdark.$bg-surface;
+        border: 1px solid cyberdark.$border-circuit;
+        border-radius: 0.6rem;
+        overflow: hidden;
+        transition: border-color 0.2s ease;
+
+        &.open {
+          border-color: cyberdark.$blue-electric;
+        }
+
+        .faq-question {
+          width: 100%;
+          padding: 1.2rem 1.5rem;
+          background: transparent;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          text-align: left;
+          color: cyberdark.$white;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: inherit;
+
+          &:hover {
+            color: cyberdark.$blue-electric;
+          }
+        }
+
+        .faq-answer {
+          padding: 0 1.5rem 1.25rem;
+          border-top: 1px solid cyberdark.$border-circuit;
+          padding-top: 1rem;
+
+          p {
+            font-size: 0.875rem;
+            color: cyberdark.$grey-muted;
+            line-height: 1.6;
+            margin: 0;
           }
         }
       }
@@ -527,17 +1109,17 @@
   // ==========================================
 
   .tech-cta-section {
-    padding: 5rem 0;
+    padding: 4.5rem 0 5.5rem;
 
     .cta-banner {
-      background-color: cyberdark.$bg-surface;   // #121212 — matches login modal
+      background-color: cyberdark.$bg-surface;
       border: 1px solid cyberdark.$border-circuit;
       border-radius: 0.75rem;
       padding: 3.5rem 2rem;
       text-align: center;
 
       h2 {
-        font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+        font-size: clamp(1.75rem, 3.2vw, 2.3rem);
         font-weight: 800;
         color: cyberdark.$white;
         margin: 0 0 0.75rem;
@@ -652,7 +1234,9 @@
           font-size: 0.85rem;
           transition: color 0.2s ease;
 
-          &:hover { color: cyberdark.$white; }
+          &:hover {
+            color: cyberdark.$white;
+          }
         }
       }
 

@@ -6,7 +6,7 @@ function Auth() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/login" element={<Register />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 }

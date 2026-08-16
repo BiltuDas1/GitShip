@@ -50,7 +50,7 @@ function Login() {
       <div
         className="closebtn"
         onClick={() => {
-          navigate(-1);
+          navigate("/");
         }}
       >
         <CloseButton />

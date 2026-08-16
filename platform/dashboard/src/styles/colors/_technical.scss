@@ -1,0 +1,27 @@
+// ==========================================
+// TECHNICAL SLATE / GITHUB PALETTE
+// ==========================================
+$slate-900: #0d1117; // Main background (GitHub Slate)
+$slate-800: #161b22; // Card & modal background
+$slate-700: #21262d; // Hover background / elevated pills
+$slate-stroke: #30363d; // Borders & grid lines
+// Accents
+$blue-github: #58a6ff; // Primary GitHub Blue
+$blue-hover: #1f6feb; // Button primary hover
+$green-github: #3fb950; // Active status, healthy
+$purple-github: #bc8cff; // Workflow pipelines
+$orange-github: #d29922; // Warning / MQ Queue
+$red-github: #f85149; // Error / Critical
+// Typography
+$text-bright: #f0f6fc;
+$text-primary: #c9d1d9;
+$text-secondary: #8b949e;
+$text-muted: #6e7681;
+// Semantic Variables
+$bg-body: $slate-900;
+$bg-card: $slate-800;
+$bg-hover: $slate-700;
+$border-color: $slate-stroke;
+$btn-primary-bg: #238636; // GitHub Green CTA or Blue CTA
+$btn-primary-text: #ffffff;
+$btn-primary-hover: #2ea043;

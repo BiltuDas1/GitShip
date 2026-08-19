@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { toSentenceCase } from "../utils/case";
 
 export function useRegister() {
   const [IsLoading, setIsLoading] = useState(false);
@@ -32,15 +33,17 @@ export function useRegister() {
       )
       .then((res) => {
         setIsLoading(false);
-        toast.success(
-          res.data?.message || "Verification email sent. Please check your inbox."
-        );
+        if (res.data?.status) {
+          toast.success("Verification email sent. Please check your inbox.");
+        } else {
+          toast.error(toSentenceCase(res.data?.message))
+        }
         return true;
       })
       .catch((err) => {
         setIsLoading(false);
         toast.error(
-          err.response?.data?.message || "Registration failed. Please try again."
+          toSentenceCase(err.response?.data?.message) || "Registration failed. Please try again."
         );
         return false;
       });

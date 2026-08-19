@@ -38,7 +38,7 @@ if not environ.ENV.exist("BREVO_API_KEY"):
 BREVO_API_KEY = str(environ.ENV.get("BREVO_API_KEY"))
 
 # User Token
-REFRESH_TOKEN_EXPIRY = 3 * 24 * 60 * 60  # 3 Days
+REFRESH_TOKEN_EXPIRY = 7 * 24 * 60 * 60  # 7 Days
 ACCESS_TOKEN_EXPIRY = 10 * 60  # 10 Minutes
 
 # Reset Password

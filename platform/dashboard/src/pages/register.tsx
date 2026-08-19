@@ -11,6 +11,16 @@ import {
 import { TooltipInput } from "../components/ui/ToolTipsInput";
 import { useNavigate } from "react-router-dom";
 
+function isStrongPassword(password: string): boolean {
+  return (
+    password.length >= 8 &&
+    /[a-z]/.test(password) &&
+    /[A-Z]/.test(password) &&
+    /\d/.test(password) &&
+    /[^A-Za-z0-9]/.test(password)
+  );
+}
+
 function Register() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -62,8 +72,8 @@ function Register() {
     if (!password) {
       newErrors.password = "Provide a Password";
       isValid = false;
-    } else if (password.length < 8) {
-      newErrors.password = "Must be at least 8 characters";
+    } else if (!isStrongPassword(password)) {
+      newErrors.password = "Password should contains, at least 8 characters, an uppercase letter, a lowercase letter and a special character";
       isValid = false;
     }
 

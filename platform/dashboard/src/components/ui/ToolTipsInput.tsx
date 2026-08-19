@@ -11,7 +11,7 @@ export function TooltipInput({ icon, error, ...props }: TooltipInputProps) {
     <>
       {icon}
       <Tippy
-        content={<span>{error}</span>}
+        content={error}
         visible={!!error} // Only show if error string exists
         placement="right"
         arrow={true}

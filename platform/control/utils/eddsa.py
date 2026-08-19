@@ -4,11 +4,15 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
 )
 from cryptography.hazmat.primitives import serialization
 from typing import cast
+import base64
 
 
 class EdDSA:
-  def __init__(self, pem_data: str):
-    private_key = serialization.load_pem_private_key(pem_data.encode(), password=None)
+  def __init__(self, pem_data_base64: str):
+    private_key = serialization.load_pem_private_key(
+      base64.b64decode(pem_data_base64), 
+      password=None
+    )
     self.__private_key = cast(Ed25519PrivateKey, private_key)
     self.__public_key = self.__private_key.public_key()
 

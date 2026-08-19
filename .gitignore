@@ -270,3 +270,6 @@ dist-ssr
 
 # Keys
 *.pem
+
+# Temporary folder
+tmp/

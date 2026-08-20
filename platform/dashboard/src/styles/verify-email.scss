@@ -1,0 +1,95 @@
+@use "colors/cyberdark";
+
+.verification-container {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.verification-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 28rem);
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: cyberdark.$bg-surface;
+  border: 1px solid cyberdark.$border-circuit;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 25%);
+}
+
+.status-icon {
+  display: grid;
+  width: 5rem;
+  height: 5rem;
+  place-items: center;
+  margin-bottom: 1.5rem;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.success {
+  color: #4ade80;
+}
+
+.error {
+  color: #f87171;
+}
+
+.verification-status h1 {
+  margin: 0;
+  color: cyberdark.$text-heading;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.verification-status p {
+  margin: 0.75rem 0 0;
+  color: cyberdark.$input-placeholder;
+}
+
+.verification-status button {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background-color: cyberdark.$btn-primary-bg;
+  color: cyberdark.$btn-primary-text;
+  cursor: pointer;
+  font: inherit;
+}
+
+.verification-status button:hover {
+  background-color: cyberdark.$blue-hover;
+}
+
+.loading-status {
+  color: cyberdark.$input-placeholder;
+}
+
+.loading-status p {
+  margin-top: 1rem;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid cyberdark.$grey-stroke;
+  border-top-color: cyberdark.$blue-electric;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

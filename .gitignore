@@ -273,3 +273,6 @@ dist-ssr
 
 # Temporary folder
 tmp/
+
+# Pnpm
+.pnpm-store/

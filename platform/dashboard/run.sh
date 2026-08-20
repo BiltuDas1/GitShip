@@ -1,8 +1,6 @@
 #!/bin/sh
 # Installs and runs the development server in the docker container
+set -e
 
-if [ ! -d "node_modules" ]; then 
-  npm install
-fi
-
-npm run dev
+pnpm install --package-import-method copy
+exec pnpm run dev

@@ -114,7 +114,28 @@ div.login-container {
         @include input-size;
         background-color: cyberdark.$btn-primary-bg;
         color: cyberdark.$btn-primary-text;
+
+        &:disabled {
+          opacity: 0.8;
+        }
+
+        .auth-spinner {
+          display: inline-block;
+          width: 1.1rem;
+          height: 1.1rem;
+          border: 2px solid rgb(255 255 255 / 35%);
+          border-top-color: cyberdark.$btn-primary-text;
+          border-radius: 50%;
+          animation: register-spinner-spin 0.8s linear infinite;
+          vertical-align: middle;
+        }
       }
     }
+  }
+}
+
+@keyframes register-spinner-spin {
+  to {
+    transform: rotate(360deg);
   }
 }

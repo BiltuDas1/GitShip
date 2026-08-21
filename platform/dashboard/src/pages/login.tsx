@@ -106,6 +106,9 @@ function Login() {
               }}
             />
           </div>
+          <a className="forgot-password-link" onClick={() => navigate("/auth/forgot-password")}>
+            Forgot password?
+          </a>
           <button type="submit" disabled={IsLoading}>
             {IsLoading ? (
               <span className="auth-spinner" aria-label="Logging in" />

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useLogin();
+  const { login, IsLoading } = useLogin();
   const navigate = useNavigate();
   const [error, setErrors] = useState<{
     email: null | string;
@@ -106,7 +106,13 @@ function Login() {
               }}
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" disabled={IsLoading}>
+            {IsLoading ? (
+              <span className="auth-spinner" aria-label="Logging in" />
+            ) : (
+              "Login"
+            )}
+          </button>
         </div>
       </form>
     </div>

@@ -26,7 +26,7 @@ function Register() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { register } = useRegister();
+  const { register, IsLoading } = useRegister();
   const navigate = useNavigate();
   const [error, setErrors] = useState<{
     firstname: null | string;
@@ -172,7 +172,13 @@ function Register() {
               }}
             />
           </div>
-          <button type="submit">Register</button>
+          <button type="submit" disabled={IsLoading}>
+            {IsLoading ? (
+              <span className="auth-spinner" aria-label="Registering" />
+            ) : (
+              "Register"
+            )}
+          </button>
         </div>
       </form>
     </div>

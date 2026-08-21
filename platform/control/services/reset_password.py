@@ -2,7 +2,9 @@ from models import User, VerificationToken, TokenType
 from utils import token
 from utils.email import Email
 from utils.template import Template, types
-import exceptions
+from . import exceptions
+from tortoise.exceptions import IntegrityError
+from datetime import datetime, timedelta, timezone
 
 
 async def reset_password(
@@ -15,9 +17,12 @@ async def reset_password(
   if user is None or not user.is_active:
     return
 
-  verify_obj = await VerificationToken.create(
-    user=user, token=token.generate_token(), token_type=TokenType.RESET_PASSWORD
-  )
+  try:
+    verify_obj = await VerificationToken.create(
+      user=user, token=token.generate_token(), token_type=TokenType.RESET_PASSWORD
+    )
+  except IntegrityError:
+    raise exceptions.TokenAlreadyExist("verification token already exist for this user")
 
   sended = await email_service.send(
     toEmail=user.email,
@@ -36,11 +41,16 @@ async def reset_password(
     raise exceptions.EmailConfigurationError("failed to send email")
 
 
-async def set_password(token: str, password: str) -> bool:
+async def set_password(token: str, password: str, expires_in: int) -> bool:
   """
   Update the password of the user which generated the token
   """
-  token_obj = await VerificationToken.get_or_none(token=token)
+  if not await is_reset_token_valid(token, expires_in):
+    return False
+
+  token_obj = await VerificationToken.get_or_none(
+    token=token, token_type=TokenType.RESET_PASSWORD
+  )
   if token_obj is None:
     return False
 
@@ -49,3 +59,18 @@ async def set_password(token: str, password: str) -> bool:
   await user.save()
   await token_obj.delete()
   return True
+
+
+async def is_reset_token_valid(token: str, expires_in: int) -> bool:
+  """
+  Check a reset token without consuming it
+  """
+  token_obj = await VerificationToken.get_or_none(
+    token=token, token_type=TokenType.RESET_PASSWORD
+  )
+  if token_obj is None:
+    return False
+
+  updated_at = token_obj.updated_at
+  now = datetime.now(updated_at.tzinfo or timezone.utc)
+  return now - updated_at <= timedelta(seconds=expires_in)

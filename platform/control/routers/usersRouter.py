@@ -1,7 +1,11 @@
 from fastapi import APIRouter, Cookie
 from schemas import usersSchema
 from services.register import register_new_user
-from services.reset_password import reset_password, set_password
+from services.reset_password import (
+  is_reset_token_valid,
+  reset_password,
+  set_password,
+)
 from services.verify_email import verify
 from services.login import login_user
 from services.logout import logout_user
@@ -120,13 +124,22 @@ async def reset(data: usersSchema.ResetPasswordSchema):
       HTTPStatus.HTTP_500_INTERNAL_SERVER_ERROR
     )
 
+  except exceptions.TokenAlreadyExist:
+    return Response(
+      status=False, message="User already received a confirmation email"
+    ).status(HTTPStatus.HTTP_409_CONFLICT)
+
 
 @passwordRouter.post("/update")
 async def update_password(data: usersSchema.UpdatePasswordSchema):
   """
   Update Password Handler (Helper of Reset Password Handler)
   """
-  isSet = await set_password(token=data.token, password=data.password)
+  isSet = await set_password(
+    token=data.token,
+    password=data.password,
+    expires_in=settings.RESET_LINK_EXPIRY,
+  )
   if not isSet:
     return Response(status=False, message="invalid token").status(
       HTTPStatus.HTTP_400_BAD_REQUEST
@@ -134,6 +147,21 @@ async def update_password(data: usersSchema.UpdatePasswordSchema):
 
   return Response(status=True, message="password updated").status(
     HTTPStatus.HTTP_200_OK
+  )
+
+
+@passwordRouter.get("/validate")
+async def validate_reset_token(token: str):
+  """
+  Validate a reset token without consuming it
+  """
+  if await is_reset_token_valid(token, settings.RESET_LINK_EXPIRY):
+    return Response(status=True, message="valid reset token").status(
+      HTTPStatus.HTTP_200_OK
+    )
+
+  return Response(status=False, message="invalid token").status(
+    HTTPStatus.HTTP_400_BAD_REQUEST
   )
 
 

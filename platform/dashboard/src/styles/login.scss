@@ -130,6 +130,23 @@ div.login-container {
           vertical-align: middle;
         }
       }
+
+      .forgot-password-link {
+        align-self: flex-end;
+        color: cyberdark.$input-placeholder;
+        cursor: pointer;
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+
+      .forgot-password-link:hover {
+        color: cyberdark.$input-text;
+      }
+
+      .auth-secondary-button {
+        background-color: cyberdark.$btn-secondary-bg;
+        color: cyberdark.$input-text;
+      }
     }
   }
 }

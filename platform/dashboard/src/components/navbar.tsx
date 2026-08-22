@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../styles/components/navbar.scss";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSession } from "../hooks/useSession";
 
 export interface NavItem {
   name: string;
@@ -49,6 +50,8 @@ function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated, isChecking } = useSession();
+  const showDashboard = isAuthenticated && !isChecking;
 
   // ScrollSpy listener
   useEffect(() => {
@@ -166,18 +169,16 @@ function Navbar() {
           </a>
 
           <div className="login-register">
-            <button
-              className="login"
-              onClick={() => navigate("/auth/login")}
-            >
-              Sign In
-            </button>
-            <button
-              className="register"
-              onClick={() => navigate("/auth/register")}
-            >
-              Get Started
-            </button>
+            {showDashboard ? (
+              <button className="register" onClick={() => navigate("/dashboard")}>
+                Dashboard
+              </button>
+            ) : (
+              <>
+                <button className="login" onClick={() => navigate("/auth/login")}>Sign In</button>
+                <button className="register" onClick={() => navigate("/auth/register")}>Get Started</button>
+              </>
+            )}
           </div>
 
           <button
@@ -213,24 +214,16 @@ function Navbar() {
             </div>
 
             <div className="mobile-actions">
-              <button
-                className="btn-mobile-login"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  navigate("/auth/login");
-                }}
-              >
-                Sign In
-              </button>
-              <button
-                className="btn-mobile-register"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  navigate("/auth/register");
-                }}
-              >
-                Get Started
-              </button>
+              {showDashboard ? (
+                <button className="btn-mobile-register" onClick={() => { setMobileMenuOpen(false); navigate("/dashboard"); }}>
+                  Dashboard
+                </button>
+              ) : (
+                <>
+                  <button className="btn-mobile-login" onClick={() => { setMobileMenuOpen(false); navigate("/auth/login"); }}>Sign In</button>
+                  <button className="btn-mobile-register" onClick={() => { setMobileMenuOpen(false); navigate("/auth/register"); }}>Get Started</button>
+                </>
+              )}
             </div>
           </motion.div>
         )}

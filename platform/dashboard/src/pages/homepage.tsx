@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/navbar";
 import "../styles/homepage.scss";
 import { useNavigate } from "react-router-dom";
+import { useSession } from "../hooks/useSession";
 
 // ────────────────────────────────────────────────────────────
 // SVG Icons
@@ -74,14 +75,6 @@ const ServerStackIcon = () => (
     <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
     <line x1="6" y1="6" x2="6.01" y2="6" />
     <line x1="6" y1="18" x2="6.01" y2="18" />
-  </svg>
-);
-
-const ShieldLockIcon = () => (
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-    <circle cx="12" cy="11" r="1.5" />
-    <path d="M12 12.5V15" />
   </svg>
 );
 
@@ -196,6 +189,8 @@ const faqs = [
 
 function Homepage() {
   const navigate = useNavigate();
+  const { isAuthenticated, isChecking } = useSession();
+  const showDashboard = isAuthenticated && !isChecking;
   const [dashboardTab, setDashboardTab] = useState<"logs" | "env" | "overview">("overview");
   const [interactiveStep, setInteractiveStep] = useState<1 | 2 | 3>(1);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -229,20 +224,22 @@ function Homepage() {
           </p>
 
           <div className="hero-cta-group">
-            <button
-              className="btn-green-cta"
-              onClick={() => navigate("/auth/register")}
-            >
-              <span>Get Started Free</span>
-              <ArrowRightIcon />
-            </button>
-
-            <button
-              className="btn-slate-secondary"
-              onClick={() => navigate("/auth/login")}
-            >
-              <span>Sign In to Dashboard</span>
-            </button>
+            {showDashboard ? (
+              <button className="btn-green-cta" onClick={() => navigate("/dashboard")}>
+                <span>Dashboard</span>
+                <ArrowRightIcon />
+              </button>
+            ) : (
+              <>
+                <button className="btn-green-cta" onClick={() => navigate("/auth/register")}>
+                  <span>Get Started Free</span>
+                  <ArrowRightIcon />
+                </button>
+                <button className="btn-slate-secondary" onClick={() => navigate("/auth/login")}>
+                  <span>Sign In to Dashboard</span>
+                </button>
+              </>
+            )}
           </div>
 
           {/* Meaningful Value Highlights */}

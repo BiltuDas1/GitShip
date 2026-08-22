@@ -60,7 +60,13 @@ function Login() {
         action="javascript:;"
         onSubmit={(e) => {
           e.preventDefault();
-          validate() && login(email, password);
+          if (validate()) {
+            login(email, password).then((isLoggedIn) => {
+              if (isLoggedIn) {
+                navigate("/dashboard");
+              }
+            });
+          }
         }}
       >
         <img className="logo" src="/logo.png" />

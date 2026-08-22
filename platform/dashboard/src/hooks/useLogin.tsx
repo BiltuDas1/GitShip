@@ -12,7 +12,7 @@ export function useLogin() {
     }
 
     setIsLoading(true);
-    axios
+    return axios
       .post(
         `${apiUrl}/users/login`,
         {
@@ -25,11 +25,12 @@ export function useLogin() {
       )
       .then(() => {
         setIsLoading(false);
-        toast.success("Login Successful");
+        return true;
       })
       .catch(() => {
         setIsLoading(false);
         toast.error("Invalid Email or Password");
+        return false;
       });
   }
   return { login, IsLoading };

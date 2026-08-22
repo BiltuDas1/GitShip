@@ -16,6 +16,7 @@ def setAuthCookies(response: Response, jwt: auth_token.AuthToken) -> Response:
   :return: Response object with the JWT Token
   :rtype: Response
   """
+  response.delete_cookie(key="refresh_token", path="/auth/refresh")
   response.add_cookie(
     key="access_token",
     value=jwt.access_token.get_token(),
@@ -37,7 +38,7 @@ def setAuthCookies(response: Response, jwt: auth_token.AuthToken) -> Response:
     secure=not debug.DEBUG,
     httponly=True,
     samesite="lax",
-    path="/auth/refresh",
+    path="/",
   )
 
   return response
@@ -48,6 +49,7 @@ def deleteAuthCookies() -> ResponseEmpty:
   Returns response of deleting the JWT Cookie
   """
   response = ResponseEmpty(status_code=HTTPStatus.HTTP_204_NO_CONTENT)
+  response.delete_cookie(key="refresh_token", path="/")
   response.delete_cookie(key="refresh_token", path="/auth/refresh")
   response.delete_cookie(key="access_token", path="/")
   return response

@@ -1,6 +1,6 @@
 ## TODO
 
-- [ ] Let people create an account, sign in, and recover their password.
+- [x] Let people create an account, sign in, and recover their password.
 - [ ] Let people connect their code or choose a ready-made container image.
 - [ ] Let people create a new app or website in a few simple steps.
 - [ ] Show clear progress while a deployment is being prepared and launched.

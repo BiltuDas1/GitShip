@@ -12,7 +12,7 @@ require (
 	github.com/mattn/go-colorable v0.1.14
 	github.com/mattn/go-shellwords v1.0.12
 	github.com/moby/term v0.5.2
-	github.com/rabbitmq/amqp091-go v1.10.0
+	github.com/rabbitmq/amqp091-go v1.13.0
 )
 
 require (

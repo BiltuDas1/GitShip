@@ -7,7 +7,7 @@ authors = [
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<4"
 dependencies = [
     "uvicorn (>=0.40.0,<0.41.0)",
     "fastapi[standard] (>=0.128.0,<0.129.0)",
@@ -20,6 +20,7 @@ dependencies = [
     "redis (>=7.1.0,<8.0.0)",
     "pyjwt (>=2.15.0,<3.0.0)",
     "cryptography (>=50.0.0,<51.0.0)",
+    "aio-pika (>=10.2.2,<11.0.0)",
 ]
 
 [dependency-groups]

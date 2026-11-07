@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core import settings, lifespan
-from routers import usersRouter, authRouter
-from exceptions import validation, dbconnection
+from routers import usersRouter, authRouter, deploymentsRouter
+from exceptions import validation, dbconnection, authentication
 from utils import email
 import db
 
@@ -10,10 +10,12 @@ import db
 app = FastAPI(title="GitShip API", lifespan=lifespan.APILifespan)
 app.include_router(usersRouter.router)
 app.include_router(authRouter.router)
+app.include_router(deploymentsRouter.router)
 
 # Custom Exceptions
 validation.setValidationException(app)
 dbconnection.setDBConnectionError(app)
+authentication.setAuthenticationException(app)
 
 # Initialize Database
 db.InitializeORM(app, settings.DB_URI)

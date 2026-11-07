@@ -2,6 +2,6 @@
 FROM node:24-alpine
 
 WORKDIR /mnt
-RUN corepack enable && corepack prepare pnpm@11.22.0 --activate
+RUN corepack enable && corepack prepare pnpm@12.16.1 --activate
 
 CMD [ "sh", "run.sh" ]

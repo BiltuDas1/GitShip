@@ -30,7 +30,7 @@ func main() {
 	defer ch.Close()
 
 	que, err := ch.QueueDeclare(
-		"deployContainer",
+		"deployment",
 		true,
 		false,
 		false,

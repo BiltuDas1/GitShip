@@ -3,10 +3,12 @@ from .auth_storage import AuthStorage
 from .redis import Redis, RedisAuthStorage
 from tortoise.contrib.fastapi import register_tortoise
 from fastapi import FastAPI
+from utils.rabbitmq import RabbitMQ
 from core import debug
 
 CACHE: Cache = Redis()
 AUTH_STORAGE: AuthStorage = RedisAuthStorage()
+MQ: RabbitMQ = RabbitMQ()
 
 
 def InitializeORM(app: FastAPI, db_uri: str):

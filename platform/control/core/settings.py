@@ -12,6 +12,11 @@ if not environ.ENV.exist("REDIS_URI"):
   raise EnvironmentError("REDIS_URI can't be empty")
 REDIS_URI = str(environ.ENV.get("REDIS_URI"))
 
+# RabbitMQ Settings
+if not environ.ENV.exist("RABBITMQ_URI"):
+  raise EnvironmentError("RABBITMQ_URI can't be empty")
+RABBITMQ_URI = str(environ.ENV.get("RABBITMQ_URI"))
+
 # Frontend Settings
 if (not debug.DEBUG) and (not environ.ENV.exist("FRONTEND_URL")):
   raise EnvironmentError("FRONTEND_URL can't be empty")

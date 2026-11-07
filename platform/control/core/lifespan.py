@@ -18,3 +18,5 @@ async def APILifespan(app: FastAPI):
   logger.LOGGER.debug("Closed connection of Cache Server")
   await db.AUTH_STORAGE.close()
   logger.LOGGER.debug("Closed connection of Auth Storage (Cache) Server")
+  await db.MQ.close()
+  logger.LOGGER.debug("Closed connection of Message Queue (RabbitMQ) Server")

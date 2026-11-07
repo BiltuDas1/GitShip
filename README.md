@@ -82,7 +82,7 @@ These are the following softwares that need to install in order to work:
 
 1. Navigate to the control directory: `platform/control`
 2. Install dependencies: `poetry install --no-root --only main`
-3. Start the API: `uvicorn main:app`
+3. Start the API: `poetry run uvicorn main:app`
 
 ### Infrastructure (Go)
 

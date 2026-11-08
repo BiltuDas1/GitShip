@@ -52,6 +52,7 @@ async def create_deployment(
 
       await mq.publish(
         {
+          "deployment_id": str(deployment.id),
           "image": image_reference(image_name, hub_url),
           "environments": {},
           "port": 0,

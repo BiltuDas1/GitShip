@@ -5,6 +5,7 @@ import (
 
 	models "github.com/BiltuDas1/GitShip/internal/models"
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
+	postgres "github.com/BiltuDas1/GitShip/pkg/postgres"
 	shellwords "github.com/mattn/go-shellwords"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -48,9 +49,10 @@ func toConfigObj(data models.DeployPayload) (conf docker.Config) {
 //  2. Then read the image name from the payload, and download it using docker daemon
 //  3. After the image has been downloaded it reads the container configuration from
 //     the payload, and then run the container according to the configuration.
+//  4. Finally the ID of the created container is stored in the database
 //
 // If something went wrong during the steps then an error returned
-func Deploy(payload amqp.Delivery) (err error) {
+func Deploy(payload amqp.Delivery, store *postgres.DB) (err error) {
 	data, err := toPayloadObj(payload.Body)
 	if err != nil {
 		return
@@ -62,6 +64,11 @@ func Deploy(payload amqp.Delivery) (err error) {
 	}
 
 	conf := toConfigObj(data)
-	err = docker.Run(data.Image, "", conf)
+	containerID, err := docker.Run(data.Image, "", conf)
+	if err != nil {
+		return
+	}
+
+	err = store.SetContainerID(data.DeploymentID, containerID)
 	return
 }

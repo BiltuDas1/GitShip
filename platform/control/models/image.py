@@ -11,3 +11,4 @@ class Image(Model):
   )
   image_name = fields.CharField(max_length=255)
   hub_url = fields.CharField(max_length=255, default="https://docker.io")
+  container_id = fields.CharField(max_length=255, null=True)

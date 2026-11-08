@@ -6,6 +6,7 @@ import (
 	utils "github.com/BiltuDas1/GitShip/internal/utils"
 	docker "github.com/BiltuDas1/GitShip/pkg/docker"
 	env "github.com/BiltuDas1/GitShip/pkg/environ"
+	postgres "github.com/BiltuDas1/GitShip/pkg/postgres"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
@@ -16,6 +17,13 @@ func main() {
 
 	MQURI, err := Env.Get("RABBITMQ_URI")
 	utils.FailOnError(err, "Failed to get RABBITMQ_URI Environment variable value")
+
+	DBURI, err := Env.Get("POSTGRESQL_URI")
+	utils.FailOnError(err, "Failed to get POSTGRESQL_URI Environment variable value")
+
+	store, err := postgres.Connect(DBURI)
+	utils.FailOnError(err, "Failed to connect to PostgreSQL")
+	defer store.Close()
 
 	conn, err := amqp.Dial(MQURI)
 	utils.FailOnError(err, "Failed to connect to RabbitMQ")
@@ -66,7 +74,7 @@ func main() {
 				<-semaphore
 			}()
 
-			err = Deploy(msg)
+			err = Deploy(msg, store)
 			if err != nil {
 				log.Printf("Deploy Failed: %s\n", err)
 				msg.Reject(false)
